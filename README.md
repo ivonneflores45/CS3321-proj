@@ -4,3 +4,4 @@ Django project for a pokemon card online shop
 # names
 - Ivonne Flores
 - Ivonne Flores
+- Maryam Khan
