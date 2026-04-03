@@ -7,3 +7,4 @@ Django project for a pokemon card online shop
 - Maryam Khan
 - Matt Alvarez
 - Jasmine Zamarron
+- Jonathan Cervantez
