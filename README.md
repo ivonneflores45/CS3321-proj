@@ -6,3 +6,4 @@ Django project for a pokemon card online shop
 - Ivonne Flores
 - Maryam Khan
 - Matt Alvarez
+- Jasmine Zamarron
