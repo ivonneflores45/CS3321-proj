@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
+    'django_tailwind_cli',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'poke_shop.urls'
+
+
+STATICFILES_DIRS = [BASE_DIR / "assets"]
 
 TEMPLATES = [
     {
