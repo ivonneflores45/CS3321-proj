@@ -64,6 +64,7 @@ class Listing(models.Model):
     #attribute fields
     title = models.CharField(max_length=200)
     description = models.TextField()
+    image = models.ImageField(upload_to='files/images', blank=True, null=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     set_name = models.CharField(max_length=100)
     type = models.CharField(max_length=50, choices=TYPE_CHOICES)

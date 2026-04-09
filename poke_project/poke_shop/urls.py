@@ -16,17 +16,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('', include('shop.urls')),
     ## default = home page
-    path('', views.home, name='shop-home'),
+    # path('', views.home, name='shop-home'),
 
-    path('register/', views.register, name='shop-register'),
-    path('catalog/', views.catalog, name='shop-catalog'),
-    path('cart/', views.cart, name='shop-cart'),
-    path('checkout/', views.checkout, name='shop-checkout')
+    # path('register/', views.register, name='shop-register'),
+    # path('catalog/', views.catalog, name='shop-catalog'),
+    # path('cart/', views.cart, name='shop-cart'),
+    # path('checkout/', views.checkout, name='shop-checkout'),
 
-]
+    # #login and logout
+    # path('login/', views.login_view, name='shop-login'),
+    # path('logout/', views.logout_view, name='shop-logout'),
+
+    # #individual listing page
+    # path('listing/<int:id>/', views.listing_detail, name='shop-listing'),
+
+    # #cart actions
+    # path('cat/add/',)
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
