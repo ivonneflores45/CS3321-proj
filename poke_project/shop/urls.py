@@ -26,7 +26,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     ## default = home page
     path('', views.home, name='shop-home'),
 
