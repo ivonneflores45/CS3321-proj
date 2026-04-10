@@ -1,5 +1,7 @@
 # Create your views here.
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Listing
+from .filters import ListingFilter
 
 from django.http import HttpResponse
 
@@ -12,6 +14,7 @@ AuthenticationController Views.
 '''
 ## register page
 def register(request):
+
     return render(request, 'auth/register.html')
 
 #login page
@@ -26,9 +29,17 @@ def logout_view(request):
 
 '''
 Catalog Views
+Author(s): Maryam Khan
+Date created: 4/10/2026
+notes: template must be updated for filtering. 
 '''
 def catalog(request):
-    return render(request, 'catalog.html')
+    listings = Listing.objects.filter(listing_status ='active')
+    listing_filter = ListingFilter(request.GET, queryset=listings)
+    return render(request, 'catalog.html', {
+        'filter': listing_filter,
+        'listings': listing_filter.qs #filtered queryset
+    })
 
 '''
 ListingController Views
@@ -54,12 +65,10 @@ def update_cart_quantity(request):
 '''
 Orders Views
 '''
-## checkout page
 def order_history(request):
     return render(request, 'orders/order_history.html')
 def order_detail(request):
     return render(request, 'orders/order_detail.html')
-## checkout page
 def cancel_order(request):
     return render(request, 'orders/cancel_order.html')
 
