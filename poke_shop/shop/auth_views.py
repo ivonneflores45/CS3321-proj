@@ -2,11 +2,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+from poke_shop.shop.models import Customer
+
 def register_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            Customer.objects.create(user=user)  # Create associated Customer profile
             login(request, user)
         return redirect('shop-home')
     else:
@@ -22,6 +25,8 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
+            if user.is_staff:
+                return redirect('shop-dashboard')  # Redirect admins to dashboard
             return redirect('shop-home')
     else:
         form = AuthenticationForm()
