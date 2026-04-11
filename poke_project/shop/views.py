@@ -45,8 +45,9 @@ def catalog(request):
 ListingController Views
 '''
 ## individual lisitng
-def listing_detail(request):
-    return render(request, 'listing.html')
+def listing_detail(request, id):
+    listing = get_object_or_404(Listing, id=id, listing_status='active')
+    return render(request, 'listing_detail.html', {'listing':listing})
 
 
 '''
