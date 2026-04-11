@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'django_tailwind_cli',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
