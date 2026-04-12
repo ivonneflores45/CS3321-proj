@@ -1,0 +1,76 @@
+/* BACKGROUND ANIMATION */
+.hero-section{
+    background: linear-gradient(-45deg,
+    orange, green, rgb(0, 162, 255), red    
+    );
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* CARD SPREAD ANIMATION!! */
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+
+.card-1 { transform: rotate(-6deg); z-index: 4; }
+.card-2 { transform: translateX(-5%) rotate(-2deg); z-index: 5; }
+.card-3 { transform: rotate(2deg); z-index: 6; }
+.card-4 { transform: translateX(4%) rotate(6deg); z-index: 7; }
+
+.group:hover .card-1 { transform: translate(-75%, 16%) rotate(-20deg); }
+.group:hover .card-2 { transform: translate(-25%, 8%) rotate(-8deg); }
+.group:hover .card-3 { transform: translate(25%, 8%) rotate(-8deg); }
+.group:hover .card-4 { transform: translate(75%, 16%) rotate(20deg); }
+
+
+/* ILLUSTRATION RARE GLARE */
+.card-rare{
+    cursor:pointer;
+    position:relative;
+}
+
+.glare{
+    position:absolute;
+    top:-150%;
+    left:-150%;
+    width:250%;
+    height:250%;
+    z-index: 50;
+
+
+    background: linear-gradient(
+        135deg,
+        transparent 42%,
+        rgba(255,255,255,.0) 46%,
+        rgba(255,255,255,.65) 50%,
+        rgba(255,255,255,.0) 54%,
+        transparent 58%
+    );
+
+    transform: rotate(0deg);
+    transition: transform 1.5s ease, top 1.5s ease, left 1.5s ease;
+    pointer-events:none;
+}
+
+.card-rare:hover .glare{
+    top:100%;
+    left:100%;
+}

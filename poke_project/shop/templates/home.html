@@ -1,18 +1,144 @@
 <!DOCTYPE html>
 {% load tailwind_cli %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Django App</title>
+    <title>PokeBid: Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Passion+One:wght@400;700;900&family=Slackey&display=swap" rel="stylesheet">
     {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
 </head>
-<body class="bg-blue-500">
-    <div class="container mx-auto px-4 bg-blue-50">
+<body class="m-0 p-0">
+    <!-- everythings labeled, bc tailwind uses class -->
+    <!--nav bar-->
+    <div class="fixed top-0 left-0 w-full h-24 bg-black flex justify-between items-center px-4 z-[999] font-[Lexend] text-2xl">
+        <!-- logo -->
+        <div class="flex cursor-pointer items-center gap-2">
+            <img src="{% static 'images/PokeBid.png'%}" class="h-20"/>
+            <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
+        </div>
+
+        <!-- top-right hand side links -->
+        <ul class="flex items-center gap-8 list-none text-white">
+            <li><a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                href="{% url 'shop-catalog' %}">
+                Shop
+                </a>
+            </li>
+            <li>
+                <a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                    href="{% url 'shop-cart' %}">
+                    Cart
+                </a>
+            </li>
+            <li>
+                <a class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-[#fd9b08]"
+                    href="{% url 'shop-register' %}">
+                    Login/Register
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- hero section -->
+    <div class="pt-24 w-full h-[46rem] flex relative hero-section">
+{% load static %}
+        <!-- texture -->
+        <div 
+          class="absolute inset-0 bg-repeat-x bg-[length:50%_auto] opacity-70 z-[1]"
+          style="background-image: url('{% static "images/mesh_texture.png" %}');">
+        </div>
+            <!-- hero content -->
+        <div class="flex justify-center w-full mt-16 mb-20">
+            <div class="relative right-18 z-[2] flex flex-col items-center text-white mr-60">
+                <img src="{% static 'images/black_bolt.png'%}" class="h-80 z-[2]"/>
+                <span class="font-[Passion_One] text-5xl">
+                    FEATURED COLLECTION:
+                </span>
+                <span class="font-[PT_Sans] font-bold text-3xl">
+                    Scarlet & Violet: Black Bolt
+                </span>
+
+                <a class="bg-black flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-black hover:border-black transition"
+                    href="{% url 'shop-catalog' %}">
+                    Take me there!
+            </a>
+            </div>
+
+                <!-- cards container -> cards -->
+            <div>
+                <div class="relative w-[20rem] aspect-[5/7] group">
+                    <div class="card card-1" style="background-image: url('{% static "cards/kyurem.png" %}')"></div>
+                    <div class="card card-2" style="background-image: url('{% static "cards/meloetta.png" %}')"></div>
+                    <div class="card card-3" style="background-image: url('{% static "cards/serperior.png" %}')"></div>
+                    <div class="card card-4" style="background-image: url('{% static "cards/zekrom.png" %}')"></div>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <!-- black bar -->
+    <div class="flex w-full bg-black h-15 items-center justify-center text-2xl">
+        <span class="text-white font-[PT_Sans] font-bold">
+            <i>Featured cards from Black Bold Collection</i>
+        </span>
+    </div>
+    <!-- 4 cards from set: black bolt (pretty ones) -->
+    <div class="flex flex-row gap-10 justify-between mx-30 my-10">
+        <div class="flex flex-col items-center justify-center">
+            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" 
+                style="background-image: url('{% static "cards/cobalion.png" %}')">
+                <div class="glare"></div>
+            </div>
+            <div class="font-[PT_Sans] font-bold text-2xl">Cobalion #144</div>
+            <a class="bg-cyan-700 flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-cyan-700 hover:border-cyan-700 transition">
+                View
+            </a>
+        </div>
+
+        <div class="flex flex-col items-center justify-center">
+            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" 
+                style="background-image: url('{% static "cards/snivy.png" %}')">
+                <div class="glare"></div>
+            </div>
+            <div class="font-[PT_Sans] font-bold text-2xl">Snivy #87</div>
+            <a class="bg-green-700 flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-green-700 hover:border-green-700 transition">
+                View
+            </a>
+        </div>
+
+        <div class="flex flex-col items-center justify-center">
+            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" 
+                style="background-image: url('{% static "cards/whirlipede.png" %}')">
+                <div class="glare"></div>
+            </div>
+            <div class="font-[PT_Sans] font-bold text-2xl">Whirlipede #133</div>
+            <a class="bg-indigo-700 flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-indigo-700 hover:border-indigo-700 transition">
+                View
+            </a>
+        </div>
+        
+        <div class="flex flex-col items-center justify-center"> 
+            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" 
+                style="background-image: url('{% static "cards/darumaka.png" %}')">
+                <div class="glare"></div>
+            </div>
+            <div class="font-[PT_Sans] font-bold text-2xl">Darumaka #97</div>
+            <a class="bg-red-700 flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-red-700 hover:border-red-700 transition">
+                View
+            </a>
+        </div>
+
+    </div>
+
         {% block content %}
 
         {% endblock %}
-        <h1 class="text-red-950">setting</h1>
-    </div>
 </body>
 </html>
