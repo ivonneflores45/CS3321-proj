@@ -5,26 +5,55 @@ from .filters import ListingFilter
 
 from django.http import HttpResponse
 
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .models import Customer
+
 ## home page
 def home(request):
     return render(request, 'home.html')
 
 '''
 AuthenticationController Views. 
+Author(s): Matt Alvarez
+Date created: 4/10/2026
 '''
 ## register page
 def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            Customer.objects.create(user=user)  # Create associated Customer profile
+            login(request, user)
+        return redirect('shop-home')
+    else:
+        form = UserCreationForm()
 
-    return render(request, 'auth/register.html')
+    return render(request, 'auth/register.html', {'form': form})
 
 #login page
 def login_view(request):
-    return render(request, 'auth/login.html')
+    next_url = request.GET.get('next', 'shop-home')  # Default to home if no next parameter
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            if user.is_staff:
+                return redirect('shop-dashboard')  # Redirect admins to dashboard
+            return redirect('shop-home')
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'auth/login.html', {'form': form})
 
 
 #logout page
 def logout_view(request):
-    return render(request, 'auth/logout.html')
+    logout(request)
+    return redirect('shop-home')
 
 
 '''
@@ -77,6 +106,7 @@ Checkout Views
 '''
 ## checkout page
 def checkout(request):
+    
     return render(request, 'checkout/checkout.html')
 def order_confirmation(request):
     return render(request, 'checkout/order_confirmation.html')
