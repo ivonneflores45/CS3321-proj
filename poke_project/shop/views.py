@@ -1,4 +1,5 @@
 # Create your views here.
+<<<<<<< HEAD
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing
 from .filters import ListingFilter
@@ -6,6 +7,11 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import Customer
 from django.contrib.auth.models import User
+=======
+from django.shortcuts import render, get_object_or_404
+from .models import Listing
+from .filters import ListingFilter
+>>>>>>> 0a8fddd9f9c028e22eaf78ceb464036e30912f94
 
 from django.http import HttpResponse
 
@@ -20,6 +26,7 @@ Date created: 4/10/2026
 '''
 ## register page
 def register(request):
+<<<<<<< HEAD
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -31,6 +38,10 @@ def register(request):
         form = UserCreationForm()
 
     return render(request, 'auth/register.html', {'form':form})
+=======
+
+    return render(request, 'auth/register.html')
+>>>>>>> 0a8fddd9f9c028e22eaf78ceb464036e30912f94
 
 #login page
 def login_view(request):
