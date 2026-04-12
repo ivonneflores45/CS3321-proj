@@ -2,6 +2,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing
 from .filters import ListingFilter
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .models import Customer
+from django.contrib.auth.models import User
 
 from django.http import HttpResponse
 
@@ -11,20 +15,42 @@ def home(request):
 
 '''
 AuthenticationController Views. 
+Author(s): Matt A
+Date created: 4/10/2026
 '''
 ## register page
 def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            Customer.objects.create(user=user)
+            login(request, user) #log em in immediately after registering
+            return redirect('shop-home')    
+    else:
+        form = UserCreationForm()
 
-    return render(request, 'auth/register.html')
+    return render(request, 'auth/register.html', {'form':form})
 
 #login page
 def login_view(request):
-    return render(request, 'auth/login.html')
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            if user.is_staff:
+                return redirect ('shop-dashboard')
+            return redirect('shop-catalog')
+    else:
+        form = AuthenticationForm()
 
+    return render(request, 'auth/login.html', {'form': form})
 
 #logout page
 def logout_view(request):
-    return render(request, 'auth/logout.html')
+    logout(request) #clear session automatically
+    return redirect ('auth/logout.html')
 
 
 '''
@@ -54,6 +80,8 @@ def listing_detail(request, id):
 
 '''
 CartController Views
+Author(s): Maryam Khan
+Date created: 4/11/2026
 '''
 ## cart page
 def cart(request):
