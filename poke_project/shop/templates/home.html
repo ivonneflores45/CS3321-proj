@@ -24,12 +24,22 @@
 
         <!-- top-right hand side links -->
         <ul class="flex items-center gap-8 list-none text-white">
-            <li><a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer">Shop</a></li>
-            <li><a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer">Cart</a></li>
+            <li><a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                href="{% url 'shop-catalog' %}">
+                Shop
+                </a>
+            </li>
             <li>
-                <button class="bg-[#fdbd0c] text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-[#fd9b08]">
+                <a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                    href="{% url 'shop-cart' %}">
+                    Cart
+                </a>
+            </li>
+            <li>
+                <a class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-[#fd9b08]"
+                    href="{% url 'shop-register' %}">
                     Login/Register
-                </button>
+                </a>
             </li>
         </ul>
     </div>
@@ -53,9 +63,10 @@
                     Scarlet & Violet: Black Bolt
                 </span>
 
-                <button class="bg-black text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-black hover:border-black transition">
+                <a class="bg-black flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-black hover:border-black transition"
+                    href="{% url 'shop-catalog' %}">
                     Take me there!
-                </button>
+            </a>
             </div>
 
                 <!-- cards container -> cards -->
@@ -81,43 +92,47 @@
     <!-- 4 cards from set: black bolt (pretty ones) -->
     <div class="flex flex-row gap-10 justify-between mx-30 my-10">
         <div class="flex flex-col items-center justify-center">
-            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" style="background-image: url('{% static "cards/cobalion.png" %}')">
+            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" 
+                style="background-image: url('{% static "cards/cobalion.png" %}')">
                 <div class="glare"></div>
             </div>
             <div class="font-[PT_Sans] font-bold text-2xl">Cobalion #144</div>
-            <button class="bg-cyan-700 text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-cyan-700 hover:border-cyan-700 transition">
+            <a class="bg-cyan-700 flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-cyan-700 hover:border-cyan-700 transition">
                 View
-            </button>
+            </a>
         </div>
 
         <div class="flex flex-col items-center justify-center">
-            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" style="background-image: url('{% static "cards/snivy.png" %}')">
+            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" 
+                style="background-image: url('{% static "cards/snivy.png" %}')">
                 <div class="glare"></div>
             </div>
             <div class="font-[PT_Sans] font-bold text-2xl">Snivy #87</div>
-            <button class="bg-green-700 text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-green-700 hover:border-green-700 transition">
+            <a class="bg-green-700 flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-green-700 hover:border-green-700 transition">
                 View
-            </button>
+            </a>
         </div>
 
         <div class="flex flex-col items-center justify-center">
-            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" style="background-image: url('{% static "cards/whirlipede.png" %}')">
+            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" 
+                style="background-image: url('{% static "cards/whirlipede.png" %}')">
                 <div class="glare"></div>
             </div>
             <div class="font-[PT_Sans] font-bold text-2xl">Whirlipede #133</div>
-            <button class="bg-indigo-700 text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-indigo-700 hover:border-indigo-700 transition">
+            <a class="bg-indigo-700 flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-indigo-700 hover:border-indigo-700 transition">
                 View
-            </button>
+            </a>
         </div>
         
         <div class="flex flex-col items-center justify-center"> 
-            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" style="background-image: url('{% static "cards/darumaka.png" %}')">
+            <div class="rounded-2xl aspect-[5/7] h-[26rem] bg-cover bg-center bg-no-repeat mb-3 relative overflow-hidden card-rare" 
+                style="background-image: url('{% static "cards/darumaka.png" %}')">
                 <div class="glare"></div>
             </div>
             <div class="font-[PT_Sans] font-bold text-2xl">Darumaka #97</div>
-            <button class="bg-red-700 text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-red-700 hover:border-red-700 transition">
+            <a class="bg-red-700 flex text-white border-2 border-white px-4 py-2 w-60 mt-5 justify-center items-center cursor-pointer font-bold text-2xl hover:bg-white hover:text-red-700 hover:border-red-700 transition">
                 View
-            </button>
+            </a>
         </div>
 
     </div>
