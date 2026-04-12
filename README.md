@@ -1,8 +1,12 @@
 # CS3321-project
 Django project for a pokemon card online shop
 
-# names
-- Ivonne Flores
+# framework + languages
+frontend: html, css, js
+bacend: python
+web framework: django
+
+# contributers
 - Ivonne Flores
 - Maryam Khan
 - Matt Alvarez

@@ -1,4 +1,25 @@
+<<<<<<< HEAD
 {% extends "base.html" %}
     {% block content %}   
         <h1 class="text-red-950">create listing page!!</h1>
     {% endblock %}
+=======
+<!DOCTYPE html>
+{% load tailwind_cli %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django App</title>
+    {% tailwind_css %}
+</head>
+<body class="bg-blue-300">
+    <div class="container mx-auto px-4 bg-blue-300">
+        {% block content %}
+
+        {% endblock %}
+        <h1 class="text-red-950">create listings page!!</h1>
+    </div>
+</body>
+</html>
+>>>>>>> dbdb89d4c2be88120c07cfa4c4cedc20bc6a7579
