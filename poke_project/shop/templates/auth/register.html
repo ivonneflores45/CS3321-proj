@@ -42,10 +42,12 @@
         <div class="absolute flex inset-0 items-center justify-center z-[99]">
             <div class="flex flex-col w-140 h-170 bg-white rounded-xl items-center overflow-hidden">
                 <!-- logo container & name -->
-                <div class="bg-black flex flex-row w-140 items-center justify-center cursor-pointer">
-                    <img src="{% static 'homepage/PokeBid.png'%}" class="h-20"/>
-                    <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
-                </div>
+                <a href="{% url 'shop-home' %}">
+                    <div class="bg-black flex flex-row w-140 items-center justify-center cursor-pointer">
+                        <img src="{% static 'homepage/PokeBid.png'%}" class="h-20"/>
+                        <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
+                    </div>
+                </a>
 
                 <!-- DJANGO FORM GOES HERE!! STYLING SOON -->
             </div>
