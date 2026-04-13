@@ -1,7 +1,12 @@
 # Create your views here.
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Listing
 from .filters import ListingFilter
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from .models import Customer
+from django.contrib.auth.models import User
+
 
 from django.http import HttpResponse
 
@@ -11,20 +16,42 @@ def home(request):
 
 '''
 AuthenticationController Views. 
+Author(s): Matt A
+Date created: 4/10/2026
 '''
 ## register page
 def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            Customer.objects.create(user=user)
+            login(request, user) #log em in immediately after registering
+            return redirect('shop-home')    
+    else:
+        form = UserCreationForm()
 
-    return render(request, 'auth/register.html')
+    return render(request, 'auth/register.html', {'form':form})
 
 #login page
 def login_view(request):
-    return render(request, 'auth/login.html')
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            if user.is_staff:
+                return redirect ('shop-dashboard')
+            return redirect('shop-catalog')
+    else:
+        form = AuthenticationForm()
 
+    return render(request, 'auth/login.html', {'form': form})
 
 #logout page
 def logout_view(request):
-    return render(request, 'auth/logout.html')
+    logout(request) #clear session automatically
+    return redirect ('auth/logout.html')
 
 
 '''
@@ -43,24 +70,76 @@ def catalog(request):
 
 '''
 ListingController Views
+Author(s): Maryam Khan
+Date created 4/11/2026
 '''
 ## individual lisitng
-def listing_detail(request):
-    return render(request, 'listing.html')
+def listing_detail(request, id):
+    listing = get_object_or_404(Listing, id=id, listing_status='active')
+    return render(request, 'listing_detail.html', {'listing':listing})
 
 
 '''
 CartController Views
+Author(s): Maryam Khan
+Date created: 4/11/2026
 '''
 ## cart page
 def cart(request):
-    return render(request, 'cart/cart.html')
-def add_to_cart(request):
-    return render(request, 'cart/cart_add.html')
-def remove_from_cart(request):
-    return render(request, 'remove_from_cart.html')
-def update_cart_quantity(request):
-    return render(request, 'update_cart_quantity.html')
+    cart = request.session.get('cart', {})
+    cart_items = []
+    total = 0
+
+    for listing_id, quantity in cart.items():
+        listing = get_object_or_404(Listing, id=listing_id)
+        subtotal = listing.base_price * quantity
+        total += subtotal
+        cart_items.append({
+            'listing':listing,
+            'quantity':quantity,
+            'subtotal':subtotal,
+        })
+
+    return render(request, 'cart/cart.html', {
+        'cart_items':cart_items,
+        'total':total,
+    })
+
+def add_to_cart(request,id):
+    listing = get_object_or_404(Listing, id=id)
+    cart = request.session.get('cart',{})
+    str_id = str(id) #session key has to be converted to string
+
+    if str_id in cart:
+        cart[str_id] += 1
+    else:
+        cart[str_id] = 1
+    
+    request.session['cart'] = cart
+    return redirect ('cart/cart_add.html')
+
+def remove_from_cart(request, id):
+    cart = request.session.get('cart',{})
+    str_id = str(id) #session key has to be converted to string
+
+    if str_id in cart:
+        del cart[str_id]
+
+    request.session['cart'] = cart
+    return redirect ('cart/remove_from_cart.html')
+
+def update_cart_quantity(request, id):
+    cart = request.session.get('cart',{})
+    str_id = str(id) #session key has to be converted to string
+    quantity = int(request.POST.get('quantity', 1))
+
+    if quantity <= 0:
+        del cart[str_id]
+    else:
+        cart[str_id] = quantity
+    
+    request.session['cart'] = cart
+    return redirect ('cart/update_cart_quantity.html')
 
 '''
 Orders Views
