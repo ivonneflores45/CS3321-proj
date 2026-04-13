@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Page</title>
+    <title>Login</title>
     {% tailwind_css %}
     <link rel="stylesheet" href="{% static 'css/animations.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Passion+One:wght@400;700;900&family=Slackey&display=swap" rel="stylesheet">
@@ -55,6 +55,65 @@
         </div>
 
 
+<body class="bg-blue-300">
+    <div class="container mx-auto px-4 bg-blue-300">
+        {% block content %}
+        <div class="h-23 w-20 bg-blue-50">
+            <!--logo-->
+            <div>
+                <h1>Pokebid</h1>
+                <p>Sign in to your account</p>
+            </div>
+
+            <!--login in form-->
+            <form method="POST">
+                {% csrf_token %}
+
+                <!--username field-->
+                <div>
+                    <label for="username">Username</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+                </div>
+                <!--password field-->
+                <div>
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+                <!--error message-->
+                {% if form.errors %}
+                    <div>
+                        <p>Invalid username or password. Please try again</p>
+                    </div>
+                {% endif %}
+
+                <!--submit button-->
+                <div>
+                    <button type="submit">Sign in</button>
+                </div>
+
+                <!--register link if user doesn't have account-->
+                <div>
+                    <p>Don't have an account?
+                        <a href="{% url 'shop-register' %}">Register here!</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        {% endblock %}
+        <!-- <h1 class="text-red-950">login page!!</h1> -->
     </div>
 
 
