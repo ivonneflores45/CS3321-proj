@@ -1,15 +1,59 @@
 <!DOCTYPE html>
 {% load tailwind_cli %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Django App</title>
+    <title>Register Page</title>
     {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Passion+One:wght@400;700;900&family=Slackey&display=swap" rel="stylesheet">
+
 </head>
-<body class="bg-red-500">
-    <div class="container mx-auto px-4">
-        {% block content %}{% endblock %}
+<body class="p-0 m-0">
+    <!-- background elements -->
+    <div
+        class="relative flex bg-repeat bg-contain w-full min-h-screen z-[1] overflow-hidden"
+        style="background-image: url('{% static "registerpage/background.png" %}');">
+        <div
+            class="absolute bg-repeat-x bg-contain w-full min-h-screen z-[2] top-0 left-0 translate-y-12 forest"
+            style="background-image: url('{% static "registerpage/forest.png" %}')">
+        </div>
+
+        <div
+            class="absolute bg-repeat-x bg-contain w-full min-h-screen z-[3] top-0 left-0 translate-y-30 grass"
+            style="background-image: url('{% static "registerpage/grass.png" %}')">
+        </div>
+<!-- brendan, latios, latias -->
+        <div
+            class="absolute bg-contain bg-no-repeat bg-center w-32 h-32 z-[4] brendan"
+            style="background-image: url('{% static "registerpage/brendan1.png" %}')">
+        </div>
+        <div class="absolute bg-contain bg-no-repeat bg-center w-60 h-60 z-[4] latios"
+            style="background-image: url('{% static "registerpage/latios.png" %}')">
+        </div>
+        <div class="absolute bg-contain bg-no-repeat bg-center w-60 h-60 z-[4] latias"
+            style="background-image: url('{% static "registerpage/latias.png" %}')">
+        </div>
+
+        <!-- login / register window -->
+            <!-- needs this to center div -->
+        <div class="absolute flex inset-0 items-center justify-center z-[99]">
+            <div class="flex flex-col w-140 h-170 bg-white rounded-xl items-center overflow-hidden">
+                <!-- logo container & name -->
+                <div class="bg-black flex flex-row w-140 items-center justify-center cursor-pointer">
+                    <img src="{% static 'homepage/PokeBid.png'%}" class="h-20"/>
+                    <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
+                </div>
+
+                <!-- DJANGO FORM GOES HERE!! STYLING SOON -->
+            </div>
+        </div>
+
+
     </div>
+
+
 </body>
 </html>

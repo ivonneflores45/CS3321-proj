@@ -74,3 +74,122 @@
     top:100%;
     left:100%;
 }
+
+/* REGISTER PAGE ANIMATION */
+@keyframes brendanMove{
+    0%{
+        left:100%;
+    }
+    100%{
+        left:-100%;
+    }
+}
+
+@keyframes brendanChange{
+    0%,49.99%{
+        background-image: url('/static/registerpage/brendan1.png');
+    }
+    50%,100%{
+        background-image: url('/static/registerpage/brendan2.png');
+    }
+}
+@keyframes latiosFly{
+    0%{
+        top:12rem;
+        left:16rem;
+    }
+    20%{
+        top:10rem;
+        left:20rem;
+    }
+    40%{
+        top: 14rem;
+        left:24rem;
+    }
+    60%{
+        top: 9rem;
+        left:19rem;
+    }
+    80%{
+        top: 13rem;
+        left:14rem;
+    }
+    100%{
+        top:12rem;
+        left:16rem;
+    }
+}
+
+@keyframes latiasFly{
+    0%{
+        top:16rem;
+        right:15rem;
+    }
+    20%{
+        top:19rem;
+        right:20rem;
+    }
+    40%{
+        top:17rem;
+        right:25rem;
+    }
+    60%{
+        top:12rem;
+        right:19rem;
+    }
+    80%{
+        top:17rem;
+        right:13rem;
+    }
+    100%{
+        top:16rem;
+        right:15rem;
+    }
+}
+
+.brendan{
+    z-index: 4;
+    position: absolute;
+    top:40rem;
+
+    image-rendering: pixelated;
+
+    animation:
+        brendanMove 30s linear infinite,
+        brendanChange 5s steps(1) infinite;
+}
+
+.latios{
+    image-rendering: pixelated;
+    top:12rem;
+    left:16rem;
+
+    animation: latiosFly 15s linear infinite;
+}
+
+.latias{
+    image-rendering: pixelated;
+    top:16rem;
+    right:15rem;
+
+    animation: latiasFly 15s linear infinite;
+}
+
+@keyframes Move{
+    0%{
+        background-position-x:100;
+    }
+    100%{
+        background-position-x:1000px;
+    }
+}
+
+.forest{
+    image-rendering: pixelated;
+    animation: Move 40s linear infinite;
+}
+
+.grass{
+    image-rendering: pixelated;
+    animation: Move 20s linear infinite
+}
