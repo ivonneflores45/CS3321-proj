@@ -38,9 +38,9 @@
         </div>
 
         <!-- login / register window -->
-            <!-- needs this to center div -->
-        <div class="absolute flex inset-0 items-center justify-center z-[99]">
-            <div class="flex flex-col w-140 h-170 bg-white rounded-xl items-center overflow-hidden">
+        {% block content %}
+        <div class="absolute flex flex-col inset-0 items-center justify-center z-[99]">
+            <div class="flex flex-col w-125 h-160 bg-white rounded-xl items-center overflow-hidden">
                 <!-- logo container & name -->
                 <a href="{% url 'shop-home' %}">
                     <div class="bg-black flex flex-row w-140 items-center justify-center cursor-pointer">
@@ -49,71 +49,77 @@
                     </div>
                 </a>
 
-
-                <!-- DJANGO FORM GOES HERE!! STYLING SOON -->
-            </div>
-        </div>
-
-
-<body class="bg-blue-300">
-    <div class="container mx-auto px-4 bg-blue-300">
-        {% block content %}
-        <div class="h-23 w-20 bg-blue-50">
-            <!--logo-->
-            <div>
-                <h1>Pokebid</h1>
-                <p>Sign in to your account</p>
+            <!-- "title" container -->
+            <div class="py-4">
+                <span class="text-4xl font-[PT_Sans] font-bold">Log In</span>
             </div>
 
-            <!--login in form-->
-            <form method="POST">
-                {% csrf_token %}
+            <!-- form container -->
+            <div class="flex-1 flex text-lg font-[PT_Sans] justify-center w-80">
+                <form method="POST" 
+                    class="w-full flex flex-col gap-4 ">
+                    {% csrf_token %}
 
-                <!--username field-->
-                <div>
-                    <label for="username">Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                        id="username"
-                        placeholder="Enter your username"
-                        required
-                    >
-                </div>
-                <!--password field-->
-                <div>
-                    <label for="password">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        required
-                    >
-                </div>
-                <!--error message-->
-                {% if form.errors %}
-                    <div>
-                        <p>Invalid username or password. Please try again</p>
+                    <!--username field-->
+                    <div class="mt-2">
+                        <label for="username"
+                            class="block">
+                            Username:
+                        </label>
+                        <input
+                            class="w-full pl-3 placeholder:text-zinc-400 text-zinc-700 text-md focus:outline-none focus:border-slate-400 rounded-2xl border-2 border-slate-200"
+                            type="text"
+                            name="username"
+                            id="username"
+                            placeholder="Enter your username"
+                            required
+                        >
                     </div>
-                {% endif %}
+                    <!--password field-->
+                    <div>
+                        <label for="password"
+                            class="block">
+                            Password:
+                        </label>
+                        <input
+                            class="w-full pl-3 placeholder:text-zinc-400 text-zinc-700 text-md focus:outline-none focus:border-slate-400 rounded-2xl border-2 border-slate-200"
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+                    </div>
+                    <!--error message-->
+                    {% if form.errors %}
+                        <div>
+                            <p>Invalid username or password. Please try again</p>
+                        </div>
+                    {% endif %}
 
-                <!--submit button-->
-                <div>
-                    <button type="submit">Sign in</button>
-                </div>
+                    <!--submit button-->
+                    <div class="w-full flex justify-center items-center mt-3">
+                        <button type="submit"
+                            class="w-full bg-amber-400 text-white rounded-full px-4 py-2 text-md cursor-pointer hover:bg-amber-500">
+                            Sign in
+                        </button>
+                    </div>
 
-                <!--register link if user doesn't have account-->
-                <div>
-                    <p>Don't have an account?
-                        <a href="{% url 'shop-register' %}">Register here!</a>
-                    </p>
-                </div>
-            </form>
+                    <!--register link if user doesn't have account-->
+                    <div>
+                        <p class="flex justify-center items-center">Don't have an account?
+                            <a href="{% url 'shop-register' %}"
+                            class="pl-1 text-amber-400 transition duration-300 hover:text-amber-500 hover:underline">
+                            Register here!
+                        </a>
+                        </p>
+                    </div>
+                </form>
+
+            </div>
+            </div>
         </div>
-
         {% endblock %}
-        <!-- <h1 class="text-red-950">login page!!</h1> -->
     </div>
 
 
