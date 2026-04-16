@@ -14,12 +14,19 @@
 </head>
 <body class="m-0 p-0">
     <!-- everythings labeled, bc tailwind uses class -->
+
+    <!-- 
+    Home Page front-end
+    Author: Ivonne Flores
+    Date created: 4/10/2026 - 4/12/2026
+     -->
+
     <!--nav bar-->
     <div class="fixed top-0 left-0 w-full h-24 bg-black flex justify-between items-center px-4 z-[999] font-[Lexend] text-2xl">
         <!-- logo -->
         <div class="flex cursor-pointer items-center gap-2">
             <img src="{% static 'homepage/PokeBid.png'%}" class="h-20"/>
-            <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
+            <span class="text-amber-400 font-[Slackey] text-3xl">PokeBid</span>
         </div>
 
         <!-- top-right hand side links -->
@@ -36,8 +43,8 @@
                 </a>
             </li>
             <li>
-                <a class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-[#fd9b08]"
-                    href="{% url 'shop-register' %}">
+                <a class="bg-amber-400 flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-amber-500"
+                    href="{% url 'shop-login' %}">
                     Login/Register
                 </a>
             </li>
