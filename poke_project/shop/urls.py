@@ -26,7 +26,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     ## default = home page
     path('', views.home, name='shop-home'),
 
@@ -57,11 +57,11 @@ urlpatterns = [
     path('orders/<int:id>/confirmation/', views.order_confirmation, name='shop-order-confirmation'),
 
     #admin dashboard
-    path('dashboard/', views.admin_dashboard, name='shop-dashboard'),
-    path('dashboard/listings/create/', views.create_listing, name='shop-listing-create'),
-    path('dashboard/listings/<int:id>/edit/', views.edit_listing, name='shop-listing-edit'),
-    path('dashboard/listings/<int:id>/remove/', views.remove_listing, name='shop-listing-remove'),
-    path('dashboard/orders/', views.all_orders, name='shop-all-orders'),
-    path('dashboard/orders/<int:id>/status/', views.update_order_status, name='shop-order-status'),
-    path('dashboard/shipping/<int:id>/tracking/', views.update_tracking, name='shop-tracking'),
+    # path('dashboard/', views.admin_dashboard, name='shop-dashboard'),
+    # path('dashboard/listings/create/', views.create_listing, name='shop-listing-create'),
+    # path('dashboard/listings/<int:id>/edit/', views.edit_listing, name='shop-listing-edit'),
+    # path('dashboard/listings/<int:id>/remove/', views.remove_listing, name='shop-listing-remove'),
+    # path('dashboard/orders/', views.all_orders, name='shop-all-orders'),
+    # path('dashboard/orders/<int:id>/status/', views.update_order_status, name='shop-order-status'),
+    # path('dashboard/shipping/<int:id>/tracking/', views.update_tracking, name='shop-tracking'),
 ]
