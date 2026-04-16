@@ -41,7 +41,7 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             if user.is_staff:
-                return redirect ('shop-dashboard')
+                return redirect ('admin:index')
             return redirect('shop-catalog')
     else:
         form = AuthenticationForm()
