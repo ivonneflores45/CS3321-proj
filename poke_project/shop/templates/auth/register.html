@@ -78,7 +78,7 @@
                             type="text"
                             name="username"
                             id="username"
-                            placeholder="Enter your username"
+                            placeholder="Create username"
                             required
                         >
                     </div>
@@ -122,16 +122,16 @@
                     <div class="w-full flex justify-center items-center mt-4">
                         <button type="submit"
                             class="w-full bg-amber-400 text-white rounded-full px-4 py-2 text-md cursor-pointer hover:bg-amber-500">
-                            Sign in
+                            Register
                         </button>
                     </div>
 
                     <!--register link if user doesn't have account-->
                     <div>
-                        <p class="flex justify-center items-center">Don't have an account?
-                            <a href="{% url 'shop-register' %}"
+                        <p class="flex justify-center items-center">Already have an account?
+                            <a href="{% url 'shop-login' %}"
                             class="pl-1 text-amber-400 transition duration-300 hover:text-amber-500 hover:underline">
-                            Register here!
+                            Log in here!
                         </a>
                         </p>
                     </div>
