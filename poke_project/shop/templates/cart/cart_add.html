@@ -1,4 +1,9 @@
 {% extends "base.html" %}
-    {% block content %}   
-        <h1 class="text-red-950">add to cart page!!</h1>
-    {% endblock %}
+
+{% block content %}
+    <section class="cart-add">
+        <h1 class="text-3xl font-bold mb-4">Add to Cart</h1>
+        <p>Use the listing detail page to add items to your cart.</p>
+        <a href="{% url 'shop-catalog' %}" class="inline-block mt-3 text-blue-600 hover:underline">Return to catalog</a>
+    </section>
+{% endblock %}

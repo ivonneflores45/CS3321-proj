@@ -1,14 +1,10 @@
 # Create your views here.
-from django.shortcuts import render, get_object_or_404
-from .models import Listing
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Listing, Customer
 from .filters import ListingFilter
 
-from django.http import HttpResponse
-
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Customer
 
 ## home page
 def home(request):
@@ -73,9 +69,38 @@ def catalog(request):
 '''
 ListingController Views
 '''
-## individual lisitng
-def listing_detail(request):
-    return render(request, 'listing.html')
+
+def _get_cart(request):
+    return request.session.get('cart', {})
+
+
+def _save_cart(request, cart):
+    request.session['cart'] = cart
+    request.session.modified = True
+
+
+def _build_cart_items(request):
+    cart = _get_cart(request)
+    items = []
+    total = 0
+    if not cart:
+        return items, total
+
+    listing_ids = [int(pk) for pk in cart.keys()]
+    listings = Listing.objects.filter(pk__in=listing_ids)
+    for listing in listings:
+        quantity = cart.get(str(listing.id), 0)
+        subtotal = listing.base_price * quantity
+        total += subtotal
+        items.append({'listing': listing, 'quantity': quantity, 'subtotal': subtotal})
+
+    return items, total
+
+
+## individual listing
+def listing_detail(request, id):
+    listing = get_object_or_404(Listing, pk=id, listing_status='active')
+    return render(request, 'listing_detail.html', {'listing': listing})
 
 
 '''
@@ -83,13 +108,50 @@ CartController Views
 '''
 ## cart page
 def cart(request):
-    return render(request, 'cart/cart.html')
+    cart_items, cart_total = _build_cart_items(request)
+    return render(request, 'cart/cart.html', {
+        'cart_items': cart_items,
+        'cart_total': cart_total,
+    })
+
+
 def add_to_cart(request):
+    if request.method == 'POST':
+        listing_id = request.POST.get('listing_id')
+        quantity = int(request.POST.get('quantity', 1))
+        listing = get_object_or_404(Listing, pk=listing_id, listing_status='active')
+
+        cart = _get_cart(request)
+        key = str(listing.id)
+        cart[key] = cart.get(key, 0) + max(quantity, 1)
+        cart[key] = min(cart[key], listing.stock_quantity)
+        _save_cart(request, cart)
+
+        return redirect('shop-cart')
+
     return render(request, 'cart/cart_add.html')
-def remove_from_cart(request):
-    return render(request, 'remove_from_cart.html')
-def update_cart_quantity(request):
-    return render(request, 'update_cart_quantity.html')
+
+
+def remove_from_cart(request, id):
+    cart = _get_cart(request)
+    cart.pop(str(id), None)
+    _save_cart(request, cart)
+    return redirect('shop-cart')
+
+
+def update_cart_quantity(request, id):
+    listing = get_object_or_404(Listing, pk=id)
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        cart = _get_cart(request)
+        if quantity <= 0:
+            cart.pop(str(id), None)
+        else:
+            cart[str(id)] = min(quantity, listing.stock_quantity)
+        _save_cart(request, cart)
+        return redirect('shop-cart')
+
+    return render(request, 'cart/update_cart_quantity.html', {'listing': listing})
 
 '''
 Orders Views

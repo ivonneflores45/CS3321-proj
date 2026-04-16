@@ -1,4 +1,18 @@
 {% extends "base.html" %}
-    {% block content %}   
-        <h1 class="text-red-950">update cart quantity page!!</h1>
-    {% endblock %}
+
+{% block content %}
+    <section class="update-quantity">
+        <h1 class="text-3xl font-bold mb-4">Update Quantity</h1>
+
+        <form action="{% url 'cart-update' listing.id %}" method="post" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label for="quantity" class="block text-sm font-medium">Quantity for {{ listing.title }}</label>
+                <input id="quantity" name="quantity" type="number" min="0" max="{{ listing.stock_quantity }}" value="1" class="mt-1 block w-24 border rounded px-2 py-1" />
+            </div>
+
+            <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Save quantity</button>
+            <a href="{% url 'shop-cart' %}" class="inline-block ml-3 text-blue-600 hover:underline">Back to cart</a>
+        </form>
+    </section>
+{% endblock %}
