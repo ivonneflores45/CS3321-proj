@@ -1,10 +1,10 @@
 # Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Listing
+from .models import Listing, Customer, Order, OrderItems, Payment, ShippingInfo
 from .filters import ListingFilter
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Customer
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 
@@ -153,28 +153,108 @@ def cancel_order(request):
 
 '''
 Checkout Views
+Author(s): Maryam Khan
+Date created: 4/19/2026
 '''
 ## checkout page
+@login_required(login_url='shop-login')
 def checkout(request):
-    return render(request, 'checkout/checkout.html')
+    cart = request.session.get('cart', {})
+    #check if empty
+    if not cart:
+        return redirect('shop-cart')
+    
+    customer = Customer.objects.get(user=request.user)
+    cart_items = []
+    total = 0
+
+    for listing_id, quantity in cart.items():
+        #calculate total cost
+        listing = get_object_or_404(Listing, id=listing_id)
+        subtotal = listing.base_price * quantity
+        total += subtotal
+        #add item details to cart_items
+        cart_items.append({
+            'listing': listing,
+            'quantity': quantity,
+            'subtotal': subtotal,
+        })
+
+    #mock transaction begins 
+    if request.method == 'POST':
+        payment_method = request.POST.get('payment_method')
+
+    #create the order
+    order = Order.objects.create(
+        customer=customer,
+        total_amount = total,
+        status='pending'
+    )
+
+    #create order items and decrement stock
+    for item in cart_items:
+        OrderItems.objects.create(
+            order=order,
+            listing=item['listing'],
+            quantity=item['quantity'],
+            unit_price=item['listing'].base_price
+        )
+        item['listing'].stock_quantity -= item['quantity']
+        if item['listing'].stock_quantity <= 0:
+            item['listing'].listing_status = 'sold'
+        item['listing'].save()
+
+    #mock payment
+    Payment.objects.create(
+        order=order,
+        amount=total,
+        payment_method=payment_method,
+        paymnet_status='completed',
+        transaction_id='MOCK-TRANSACTION'
+    )
+
+    #create shipping record
+    ShippingInfo.objects.create(
+        customer=customer,
+        order=order,
+        recipient_name=request.POST.get('recipient_name', ''),
+        address_line1=request.POST.get('address_line1',''),
+        address_line2=request.POST.get('address_line2',''),
+        city=request.POST.get('city', ''),
+        state=request.POST.get('state', ''),
+        zip_code=request.POST.get('zip_code', ''),
+        country = request.POSt.get('country', ''),
+        shipping_status='processing'
+    )
+
+    #update order status and clear cart
+    order.status = 'processing'
+    order.save()
+    request.session['cart']= {}
+
+    return redirect('shop-order-confirmation', id=order.id)
+
+#order confirmation 
+@login_required(login_url='shop-login')
 def order_confirmation(request):
-    return render(request, 'checkout/order_confirmation.html')
+    order = get_object_or_404(Order, id=id, customer__user=request.user)
+    return render(request, 'checkout/order_confirmation.html', {'order':order})
 
 '''
 Admin Dashboard Views
 '''
-def admin_dashboard(request):
-    return render(request, 'admin/admin_dashboard.html')
-def create_listing(request):
-    return render(request, 'admin/create_listing.html')
-def edit_listing(request):
-    return render(request, 'admin/edit_listing.html')
-def remove_listing(request):
-    return render(request, 'admin/remove_listing.html')
-def all_orders(request):
-    return render(request, 'admin/all_orders.html')
-def update_order_status(request):
-    return render(request, 'admin/update_order_status.html')
-def update_tracking(request):
-    return render(request, 'admin/update_tracking.html')
+# def admin_dashboard(request):
+#     return render(request, 'admin/admin_dashboard.html')
+# def create_listing(request):
+#     return render(request, 'admin/create_listing.html')
+# def edit_listing(request):
+#     return render(request, 'admin/edit_listing.html')
+# def remove_listing(request):
+#     return render(request, 'admin/remove_listing.html')
+# def all_orders(request):
+#     return render(request, 'admin/all_orders.html')
+# def update_order_status(request):
+#     return render(request, 'admin/update_order_status.html')
+# def update_tracking(request):
+#     return render(request, 'admin/update_tracking.html')
 
