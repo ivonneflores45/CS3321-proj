@@ -31,9 +31,23 @@
             </div>
          </a>
 
+         <div class="flex-1 h-12 flex px-12 overflow-hidden rounded-lg">
+            <div class="w-4/6 h-full flex items-center bg-white">
+                <input class="flex w-full px-4 placeholder:text-zinc-400 text-zinc-700 text-sm focus:outline-none" 
+                    type="text" placeholder="Search..">
+            </div>
+
+            <!-- WORK IN PROGRESS, set div containers for sort & filter buttons. just for quick visuals -->
+            <div class="w-1/6 h-full flex justify-center items-center bg-white border-l-2 border-slate-400">
+                sort by
+            </div>
+            <div class="w-1/6 h-full flex justify-center items-center bg-white border-l-2 border-slate-400">
+                filter
+            </div>
+         </div>
 
         <!-- top-right hand side links -->
-        <ul class="flex items-center gap-8 list-none text-white">
+        <ul class="flex justify-center items-center gap-8 list-none text-white">
             <li><a class="text-orange-300 cursor-pointer"
                 href="{% url 'shop-catalog' %}">
                 Shop
@@ -54,164 +68,38 @@
         </ul>
     </div>
 
-    <!-- searchbar container -->
-     <div class="fixed top-24 left-0 right-0 z-[99] bg-yellow-500 py-4">
-
-    
-        <div class="h-16 mx-20 my-2 flex justify-between items-center item-stretch border-2 border-slate-200 overflow-hidden">
-            <!-- search -->
-            <div class="w-4/6 h-full flex items-center border-2 border-slate-200 focus-within:border-slate-400 bg-white">
-                <input class="flex w-full px-4 placeholder:text-zinc-400 text-zinc-700 text-sm focus:outline-none" 
-                    type="text" placeholder="Search..">
-            </div>
-
-            <!-- WORK IN PROGRESS, set div containers for sort & filter buttons. just for quick visuals -->
-            <div class="w-1/6 h-full flex justify-center items-center border-r-2 border-slate-200 text-sm py-2 bg-white">
-                sort by
-            </div>
-            <div class="w-1/6 h-full flex justify-center items-center bg-white">
-                filter
-            </div>
-        </div>
-    </div>
-
         <!-- CARDS & LISTINGS CONTAINER -->
-        <div class="size-auto absolute flex top-60 left-25 right-25">
+        <div class="size-auto absolute flex top-35 left-25 right-25">
             <!-- GRID CONTAINER -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
                 <!-- ACTUAL LISTINGS SQUARES -->
-
+                {% for card in listings %}
                 <!-- testing, sends to home, styling hovering -->
-                <a href="{% url 'shop-home' %}">
+                <a href="{% url 'shop-listing' card.id%}">
                     <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
                         <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
+                            <img src="{{card.image.url}}"
                                 class="w-42 h-auto object-contain shrink-0"/>
                         
                             <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
+                                <h1 class="font-[PT_Sans] font-bold text-2xl">
+                                    {{card.title}}
+                                </h1>
+                                <span class="font-[PT_Sans] text-lg">
+                                    {{card.set_name}}
+                                </span>
+                                <span class="font-[PT_Sans] text-lg">
+                                    ${{card.base_price}}
+                                </span>
                             </div>
                         </div>
                     </div>
                 </a>
-
+                {% empty %}
+                    <p>no listings found</p>
+                {% endfor %}
 
                 <!-- JUST TO SEE HOW ALL GRID BOXES FIT, DELETE -->
-                <a href="{% url 'shop-home' %}">
-                    <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
-                        <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
-                            <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="{% url 'shop-home' %}">
-                    <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
-                        <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
-                            <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="{% url 'shop-home' %}">
-                    <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
-                        <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
-                            <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="{% url 'shop-home' %}">
-                    <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
-                        <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
-                            <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-    <a href="{% url 'shop-home' %}">
-                    <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
-                        <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
-                            <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="{% url 'shop-home' %}">
-                    <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
-                        <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
-                            <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="{% url 'shop-home' %}">
-                    <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
-                        <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
-                            <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="{% url 'shop-home' %}">
-                    <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
-                        <div class="flex flex-row items-start gap-4">
-                            <img src="{% static 'cards/snivy.png' %}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
-                            <div class="flex flex-col ml-2 gap-2">
-                                <h1 class="font-[PT_Sans] font-bold text-2xl">Snivy</h1>
-                                <span class="font-[PT_Sans] text-lg">Set name</span>
-                                <span class="font-[PT_Sans] text-lg">$10.99</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                </div>
             </div>
             
         </div>
