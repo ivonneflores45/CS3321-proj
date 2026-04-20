@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
 
 
 from django.http import HttpResponse
@@ -16,7 +17,7 @@ def home(request):
 
 '''
 AuthenticationController Views. 
-Author(s): Matt A
+Author(s): Matt Alvarez
 Date created: 4/10/2026
 '''
 ## register page
@@ -143,17 +144,67 @@ def update_cart_quantity(request, id):
 
 '''
 Orders Views
+Author(s): Matt Alvarez
+Date created: 4/12/2026
 '''
+@login_required(login_url='shop-login')
 def order_history(request):
-    return render(request, 'orders/order_history.html')
+    """Display all orders fro the logged-in customer."""
+    customer = get_object_or_404(Customer, user=request.user)
+    orders = Order.objects.filter(customer=customer).order_by('-order_date')
+
+    return render(request, 'orders/order_history.html', {
+        'orders':orders
+    })
+
+@login_required(login_url='shop-login')
 def order_detail(request):
-    return render(request, 'orders/order_detail.html')
+    """Display details of a specific order."""
+    customer = get_object_or_404(Customer, user=request.user)
+    order = get_object_or_404(Order, id=id, customer=customer)
+    order_items = OrderItems.objects.filter(order=order)
+    shipping = ShippingInfo.objects.filter(order=order).first() #returns None if not found
+    payment = Payment.objects.filter(order=order).first() #returns None if not found
+    
+    return render(request, 'orders/order_detail.html', {
+        'order': order,
+        'order_items': order_items,
+        'shipping': shipping,
+        'payment': payment
+    })
+
+@login_required(login_url='shop-login')
 def cancel_order(request):
-    return render(request, 'orders/cancel_order.html')
+    """Cancel an order if it's still pending."""
+    customer = get_object_or_404(Customer, user=request.user)
+    order = get_object_or_404(Order, id=id, customer=customer)
+
+    #only allow cancellation of pending orders
+    if order.status != 'pending':
+        return HttpResponseForbidden("Only pending orders can be cancelled.")
+
+    if request.method == 'POST':
+        order.status = 'cancelled'
+        order.save()
+
+        # restore stock
+        order_items = OrderItems.objects.filter(order=order)
+        for item in order_items:
+            listing = item.listing
+            listing.stock_quantity += item.quantity
+            if listing.listing_status == 'sold':
+                listing.listing_status = 'active'
+            listing.save()
+
+        return redirect('shop-orders')
+
+    return render(request, 'orders/cancel_order.html', {
+        'order': order
+    })
 
 '''
 Checkout Views
-Author(s): Maryam Khan
+Author(s): Jasmine Zamarron
 Date created: 4/19/2026
 '''
 ## checkout page
@@ -240,21 +291,4 @@ def order_confirmation(request):
     order = get_object_or_404(Order, id=id, customer__user=request.user)
     return render(request, 'checkout/order_confirmation.html', {'order':order})
 
-'''
-Admin Dashboard Views
-'''
-# def admin_dashboard(request):
-#     return render(request, 'admin/admin_dashboard.html')
-# def create_listing(request):
-#     return render(request, 'admin/create_listing.html')
-# def edit_listing(request):
-#     return render(request, 'admin/edit_listing.html')
-# def remove_listing(request):
-#     return render(request, 'admin/remove_listing.html')
-# def all_orders(request):
-#     return render(request, 'admin/all_orders.html')
-# def update_order_status(request):
-#     return render(request, 'admin/update_order_status.html')
-# def update_tracking(request):
-#     return render(request, 'admin/update_tracking.html')
 
