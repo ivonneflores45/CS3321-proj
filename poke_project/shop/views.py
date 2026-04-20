@@ -4,12 +4,10 @@ from .models import Listing, Order, OrderItems, Payment, ShippingInfo, Customer
 from .filters import ListingFilter
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Customer
 from django.contrib.auth.models import User
-
-
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from django.db import models
 
 ## home page
 def home(request):
@@ -144,20 +142,63 @@ def update_cart_quantity(request, id):
 
 '''
 Orders Views
+Author(s): Matt Alvarez
+Date created: 4/12/2026
 '''
+@login_required(login_url='shop-login')
 def order_history(request):
+    """Display all orders for the logged-in customer."""
+    customer = get_object_or_404(Customer, user=request.user)
+    orders = Order.objects.filter(customer=customer).order_by('-order_date')
+    
+    return render(request, 'orders/order_history.html', {
+        'orders': orders
+    })
 
-    return render(request, 'orders/order_history.html')
-def order_detail(request):
-    return render(request, 'orders/order_detail.html')
-def cancel_order(request):
-    return render(request, 'orders/cancel_order.html')
+
+@login_required(login_url='shop-login')
+def order_detail(request, id):
+    """Display details of a specific order."""
+    customer = get_object_or_404(Customer, user=request.user)
+    order = get_object_or_404(Order, id=id, customer=customer)
+    order_items = OrderItems.objects.filter(order=order)
+    shipping = get_object_or_404(ShippingInfo, order=order)
+    payment = get_object_or_404(Payment, order=order)
+    
+    return render(request, 'orders/order_detail.html', {
+        'order': order,
+        'order_items': order_items,
+        'shipping': shipping,
+        'payment': payment
+    })
+
+
+@login_required(login_url='shop-login')
+def cancel_order(request, id):
+    """Cancel an order if it's still pending."""
+    customer = get_object_or_404(Customer, user=request.user)
+    order = get_object_or_404(Order, id=id, customer=customer)
+    
+    # Only allow cancellation of pending orders
+    if order.status != 'pending':
+        return HttpResponseForbidden("Only pending orders can be cancelled.")
+    
+    if request.method == 'POST':
+        order.status = 'cancelled'
+        order.save()
+        return redirect('shop-orders')
+    
+    return render(request, 'orders/cancel_order.html', {
+        'order': order
+    })
 
 '''
 Checkout Views
 Matt Alvarez
+4/13/2026
 '''
 ## checkout page
+@login_required(login_url='shop-login')
 def checkout(request):
     cart = request.session.get('cart', {})
     if not cart:
@@ -173,9 +214,14 @@ def checkout(request):
         payment_method = request.POST.get('payment_method')
 
         customer = Customer.objects.get(user=request.user)
-        total = customer.total_amount #function to calculate total from cart items
+        
+        # Calculate total from cart
+        total = 0
+        for listing_id, quantity in cart.items():
+            listing = get_object_or_404(Listing, id=listing_id)
+            total += listing.base_price * quantity
+            
         order = Order.objects.create(customer=customer, total_amount=total ) 
-
 
         for listing_id, quantity in cart.items():
             listing = get_object_or_404(Listing, id=listing_id)
@@ -186,7 +232,7 @@ def checkout(request):
                 unit_price=listing.base_price
             )
         ShippingInfo.objects.create(
-            customer=Customer,
+            customer=customer,
             order=order,
             recipient_name=recipient_name,
             address_line1=address,
@@ -203,7 +249,7 @@ def checkout(request):
             payment_status='completed',
         )
         request.session['cart'] = {}
-        return redirect('shop-order-confirmation')
+        return redirect('shop-order-confirmation', id=order.id)
     
     cart_items = []
     total = 0
@@ -222,25 +268,10 @@ def checkout(request):
     })  
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def order_confirmation(request):
-
-    Customer.objects.get(user=request.user)
-    order = Order.objects.filter(customer=Customer).latest('order_date')
+def order_confirmation(request, id):
+    """Display order confirmation after successful checkout."""
+    customer = get_object_or_404(Customer, user=request.user)
+    order = get_object_or_404(Order, id=id, customer=customer)
     order_items = OrderItems.objects.filter(order=order)
     shipping = ShippingInfo.objects.get(order=order)
 
@@ -252,6 +283,8 @@ def order_confirmation(request):
 
 '''
 Admin Dashboard Views
+Author(s): Matt Alvarez
+Date created: 4/14/2026
 '''
 def admin_required(view_func):
     def wrapper(request, *args, **kwargs):
