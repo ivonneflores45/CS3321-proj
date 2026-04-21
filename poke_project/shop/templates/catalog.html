@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PokeBid: Home</title>
+    <title>PokeBid: Catalog</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Passion+One:wght@400;700;900&family=Slackey&display=swap" rel="stylesheet">
@@ -31,20 +31,24 @@
             </div>
          </a>
 
-         <div class="flex-1 h-12 flex px-12 overflow-hidden rounded-lg">
-            <div class="w-4/6 h-full flex items-center bg-white">
-                <input class="flex w-full px-4 placeholder:text-zinc-400 text-zinc-700 text-sm focus:outline-none" 
-                    type="text" placeholder="Search..">
+         <form method="get" class="flex-1 h-12 flex px-12 overflow-hidden rounded-lg">
+
+            <!-- searchbar -->
+            <div class="w-4/6 h-full flex items-center outline-none text-md bg-white">
+                {{filter.form.title}}
             </div>
 
-            <!-- WORK IN PROGRESS, set div containers for sort & filter buttons. just for quick visuals -->
-            <div class="w-1/6 h-full flex justify-center items-center bg-white border-l-2 border-slate-400">
-                sort by
+            <!-- sort -->
+            <div class="w-1/6 h-full text-sm flex justify-center items-center bg-white border-l-2 border-slate-400">
+                {{filter.form.sort}}
             </div>
-            <div class="w-1/6 h-full flex justify-center items-center bg-white border-l-2 border-slate-400">
-                filter
+
+            <!-- filter -->
+            <div class="w-1/6 h-full text-sm flex justify-center items-center bg-white border-l-2 border-slate-400">
+                {{filter.form.category}}
             </div>
-         </div>
+
+        </form>
 
         <!-- top-right hand side links -->
         <ul class="flex justify-center items-center gap-8 list-none text-white">
@@ -74,7 +78,6 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
                 <!-- ACTUAL LISTINGS SQUARES -->
                 {% for card in listings %}
-                <!-- testing, sends to home, styling hovering -->
                 <a href="{% url 'shop-listing' card.id%}">
                     <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
                         <div class="flex flex-row items-start gap-4">
