@@ -1,4 +1,5 @@
 import django_filters
+from django import forms
 from .models import Listing
 
 '''
@@ -17,12 +18,42 @@ class ListingFilter(django_filters.FilterSet):
     max_price = django_filters.NumberFilter(field_name='base_price', lookup_expr='lte', label='Max Price')
     
     #dropdown filters using listing model choice sets
-    category = django_filters.MultipleChoiceFilter(choices=Listing.CATEGORY_CHOICES, label='Category')
-    condition = django_filters.MultipleChoiceFilter(choices=Listing.CONDITION_CHOICES, label='Condition')
-    rarity = django_filters.MultipleChoiceFilter(choices=Listing.RARITY_CHOICES, label='Rarity')
-    element = django_filters.MultipleChoiceFilter(choices=Listing.ELEMENT_CHOICES, label='Element')
-    type = django_filters.MultipleChoiceFilter(choices=Listing.TYPE_CHOICES, label='Type')
+    category = django_filters.ChoiceFilter(
+        choices=[('', 'All Categories')] + list(Listing.CATEGORY_CHOICES),
+        widgets=forms.Select(attrs={
+            'class':'tailwind class here'
+        })
+     
+    )
 
+    condition = django_filters.ChoiceFilter(
+        choices=[('', 'All Conditions')] + list(Listing.CONDITION_CHOICES),
+        widgets=forms.Select(attrs={
+            'class':'tailwind class here'
+        })
+     
+    )
+    rarity = django_filters.ChoiceFilter(
+        choices=[('', 'All Rarities')] + list(Listing.RARITY_CHOICES),
+        widgets=forms.Select(attrs={
+            'class':'tailwind class here'
+        })
+     
+    )
+    element = django_filters.ChoiceFilter(
+        choices=[('', 'All Elements')] + list(Listing.ELEMENT_CHOICES),
+        widgets=forms.Select(attrs={
+            'class':'tailwind class here'
+        })
+     
+    )
+    type = django_filters.ChoiceFilter(
+        choices=[('', 'All Types')] + list(Listing.TYPE_CHOICES),
+        widgets=forms.Select(attrs={
+            'class':'tailwind class here'
+        })
+     
+    )
     #set name search
     set_name = django_filters.CharFilter(lookup_expr='icontains', label='Set Name')
 
@@ -30,14 +61,21 @@ class ListingFilter(django_filters.FilterSet):
     sort = django_filters.OrderingFilter(
         fields = (
             ('base_price', 'price_asc'),
-            ('-base_price', 'price_desc'),
             ('title', 'name_asc'),
         ),
         field_labels = {
             'base_price' : 'Prie: Low to High',
             '-base_price': 'Price: High to Low',
             'title' : 'Name: A to Z'
-        }
+        },
+        choices = [
+            ('base_price', 'Price: Low to High'),
+            ('-base_price', 'Price: High to Low'),
+            ('title', 'Name: A to Z'),
+        ],
+        widget=forms.Select(attrs={
+            'class':'tailwind class here'
+        })
     )
 
     class Meta: 
