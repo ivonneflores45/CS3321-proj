@@ -1,18 +1,145 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 {% load tailwind_cli %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Django App</title>
+    <title>{{listing.title}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Passion+One:wght@400;700;900&family=Slackey&display=swap" rel="stylesheet">
     {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
 </head>
-<body class="bg-blue-300">
-    <div class="container mx-auto px-4 bg-orange-300">
+<body class="m-0 p-0">
+    <!-- everythings labeled, bc tailwind uses class -->
+
+    <!-- 
+    Home Page front-end
+    Author: Ivonne Flores
+    Date created: 4/20/26
+     -->
+
+    <!--nav bar-->
+    <div class="fixed top-0 left-0 w-full h-24 bg-black flex justify-between items-center px-4 z-[999] font-[Lexend] text-2xl">
+        <!-- logo -->
+         <a href="{% url 'shop-home' %}">
+            <div class="flex cursor-pointer items-center gap-2">
+                <img src="{% static 'homepage/PokeBid.png'%}" class="h-20"/>
+                <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
+            </div>
+         </a>
+
+        <!-- top-right hand side links -->
+        <ul class="flex items-center gap-8 list-none text-white">
+            <li><a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                href="{% url 'shop-catalog' %}">
+                Shop
+                </a>
+            </li>
+            <li>
+                <a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                    href="{% url 'shop-cart' %}">
+                    Cart
+                </a>
+            </li>
+            <li>
+                <a class="bg-amber-400 flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-amber-500"
+                    href="{% url 'shop-login' %}">
+                    Login/Register
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <!-- listing container -->
+
+    <div class="mt-25 px-50">
+        <div class="bg-white rounded-2xl shadow-sm p-6 transition">
+            <div class="mb-6">
+                <a class="inline-flex border-2 border-slate-300 rounded-2xl px-4 py-2 font-[PT_Sans] hover:bg-slate-300"
+                href="{% url 'shop-catalog' %}">
+                    Go Back
+                </a>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-0">
+
+                <!-- image -->
+                <div class="lg:w-1/3 flex flex-col justify-center items-center">
+                        <img src="{{listing.image.url}}" class="w-80"/>
+                </div>
+                    
+            <!-- description etc -->
+             <div class="lg:w-1/3 flex flex-col justify-start gap-2 font-[PT_Sans] text-lg pl-12">
+                <span class="text-4xl font-bold">
+                   {{listing.title}}
+                </span>
+                <!-- element color -->
+                {% if listing.element == 'fire' %}
+                    <span class="flex w-30 justify-center py-2 rounded-full w-8 px-4 py-2 rounded-full bg-red-500 text-white">Fire</span>
+                {% elif listing.element == 'water' %}
+                    <span class="flex w-30 justify-center py-2 rounded-full px-4 py-2 rounded-full bg-blue-500 text-white">Water</span>
+                {% elif listing.element == 'grass' %}
+                    <span class="flex w-30 justify-center py-2 rounded-full bg-green-500 text-white">Grass</span>
+                {% elif listing.element == 'electric' %}
+                    <span class="flex w-30 justify-center py-2 rounded-full px-4 py-2 rounded-full bg-yellow-400">Electric</span>
+                {% elif listing.element == 'psychic' %}
+                    <span class="flex w-30 justify-center py-2 rounded-full px-4 py-2 rounded-full bg-pink-500 text-white">Psychic</span>
+                {% elif listing.element == 'dark' %}
+                    <span class="flex w-30 justify-center py-2 rounded-full px-4 py-2 rounded-full bg-gray-800 text-white">Dark</span>
+                {% elif listing.element == 'metal' %}
+                    <span class="flex w-30 justify-center py-2 rounded-full px-4 py-2 rounded-full bg-gray-400">Metal</span>
+                {% else %}
+                    <span class="flex w-30 justify-center py-2 rounded-full px-4 py-2 rounded-full bg-slate-300">
+                        {{ listing.element }}
+                    </span>
+                {% endif %}
+
+               <!-- description & attributes -->
+                <span>{{listing.description}}</span>
+                <span><b>Set:</b> {{ listing.set_name }}</span>
+                <span><b>Condition:</b> {{ listing.condition }}</span>
+                <span><b>Category:</b> {{ listing.category }}</span>
+                <span><b>Rarity:</b> {{ listing.rarity }}</span>
+                <span><b>Stock:</b> {{ listing.stock_quantity }}</span>
+
+                </div>
+
+                <div class="lg:w-1/3 flex justify-start">
+                    <div class="border-2 border-slate-300 rounded-lg w-80 p-6 h-fit items-center justify-center flex flex-col gap-4 ">
+                        <span class="font-bold text-3xl">
+                           ${{listing.base_price}}
+                        </span>
+                        <div class="flex items-center gap-3">
+                            <button class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 text-xl cursor-pointer hover:bg-[#fd9b08]">
+                               Add to cart
+                            </button>
+                            <input type="number"
+                               min="1"
+                               max="{{listing.stock_quantity}}"
+                               value="1"
+                               class="w-20 border border-slate-300 rounded-lg px-3 py-2">
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+
         {% block content %}
 
         {% endblock %}
-        <h1 class="text-red-950">individual listing page!!</h1>
-    </div>
 </body>
 </html>

@@ -1,0 +1,439 @@
+[
+{
+  "model": "shop.listing",
+  "pk": 2,
+  "fields": {
+    "title": "Snivy #87",
+    "description": "The leaf on Snivy’s tail generates energy when exposed to sunlight, making Snivy swifter and adding an edge to its moves.",
+    "image": "files/images/snivy.png",
+    "category": "single_card",
+    "set_name": "Black Bolt",
+    "type": "pokemon",
+    "condition": "used",
+    "rarity": "uncommon",
+    "ability": "ability",
+    "element": "grass",
+    "base_price": "15.60",
+    "stock_quantity": 2,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 3,
+  "fields": {
+    "title": "Cobalion #144",
+    "description": "This Pokémon appears in a legend alongside Terrakion and Virizion, fighting against humans in defense of the Unova region’s Pokémon.",
+    "image": "files/images/cobalion.png",
+    "category": "single_card",
+    "set_name": "Black Bolt",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "rare",
+    "ability": "ability",
+    "element": "metal",
+    "base_price": "16.15",
+    "stock_quantity": 4,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 4,
+  "fields": {
+    "title": "Whirlepede #133",
+    "description": "This Pokémon spins itself rapidly and charges into its opponents. Its top speed is just over 60 mph.",
+    "image": "files/images/whirlipede.png",
+    "category": "single_card",
+    "set_name": "Black Bolt",
+    "type": "pokemon",
+    "condition": "near_mint",
+    "rarity": "rare",
+    "ability": "ability",
+    "element": "dark",
+    "base_price": "5.98",
+    "stock_quantity": 14,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 5,
+  "fields": {
+    "title": "Darumaka #97",
+    "description": "Darumaka’s droppings are hot, so people used to put them in their clothes to keep themselves warm.",
+    "image": "files/images/darumaka.png",
+    "category": "single_card",
+    "set_name": "Black Bolt",
+    "type": "pokemon",
+    "condition": "used",
+    "rarity": "rare",
+    "ability": "attack",
+    "element": "fire",
+    "base_price": "9.50",
+    "stock_quantity": 20,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 6,
+  "fields": {
+    "title": "Zekrom EX #166",
+    "description": "This legendary Pokémon can scorch the world with lightning. It assists those who want to build an ideal world.",
+    "image": "files/images/zekrom.png",
+    "category": "single_card",
+    "set_name": "Black Bolt",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "rare",
+    "ability": "ability",
+    "element": "electric",
+    "base_price": "242.70",
+    "stock_quantity": 2,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 7,
+  "fields": {
+    "title": "Serperior EX #156",
+    "description": "It generates energy from sunlight, then amplifies that energy dozens of times within its long body.",
+    "image": "files/images/serperior.png",
+    "category": "single_card",
+    "set_name": "Black Bolt",
+    "type": "pokemon",
+    "condition": "near_mint",
+    "rarity": "rare",
+    "ability": "ability",
+    "element": "grass",
+    "base_price": "46.36",
+    "stock_quantity": 12,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 8,
+  "fields": {
+    "title": "Meleotta EX #167",
+    "description": "The melodies sung by Meloetta have the power to make Pokémon that hear them happy or sad.",
+    "image": "files/images/meloetta.png",
+    "category": "single_card",
+    "set_name": "Black Bolt",
+    "type": "pokemon",
+    "condition": "near_mint",
+    "rarity": "rare",
+    "ability": "ability",
+    "element": "psychic",
+    "base_price": "37.89",
+    "stock_quantity": 25,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 9,
+  "fields": {
+    "title": "Kyurem EX #165",
+    "description": "This legendary ice Pokémon waits for a hero to fill in the missing parts of its body with truth or ideals.",
+    "image": "files/images/kyurem.png",
+    "category": "single_card",
+    "set_name": "Black Bolt",
+    "type": "pokemon",
+    "condition": "damaged",
+    "rarity": "rare",
+    "ability": "ability",
+    "element": "water",
+    "base_price": "34.55",
+    "stock_quantity": 2,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 10,
+  "fields": {
+    "title": "Lillie's Determination #169",
+    "description": "Prof. Kukui's assistant.",
+    "image": "files/images/lillie.png",
+    "category": "single_card",
+    "set_name": "Mega Evolution",
+    "type": "trainer",
+    "condition": "mint",
+    "rarity": "rare",
+    "ability": "none",
+    "element": "none",
+    "base_price": "20.28",
+    "stock_quantity": 13,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 11,
+  "fields": {
+    "title": "Buneary",
+    "description": "If both of Buneary’s ears are rolled up, something is wrong with its body or mind. It’s a sure sign the Pokémon is in need of care.",
+    "image": "files/images/buneary.png",
+    "category": "single_card",
+    "set_name": "Mega Evolution",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "common",
+    "ability": "none",
+    "element": "colorless",
+    "base_price": "0.05",
+    "stock_quantity": 7,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 12,
+  "fields": {
+    "title": "Mega Lucario EX #188",
+    "description": "By reading the auras of all things, it can tell how others are feeling from over half a mile away.",
+    "image": "files/images/mega_lucario.png",
+    "category": "single_card",
+    "set_name": "Mega Evolution",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "rare",
+    "ability": "none",
+    "element": "fighting",
+    "base_price": "239.68",
+    "stock_quantity": 4,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 13,
+  "fields": {
+    "title": "Mega Latias EX #163",
+    "description": "Latias is highly sensitive to the emotions of people. If it senses any hostility, this Pokémon ruffles the feathers all over its body and cries shrilly to intimidate the foe.",
+    "image": "files/images/mega_latias.png",
+    "category": "single_card",
+    "set_name": "Mega Evolution",
+    "type": "pokemon",
+    "condition": "damaged",
+    "rarity": "rare",
+    "ability": "none",
+    "element": "dragon",
+    "base_price": "3.83",
+    "stock_quantity": 3,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 14,
+  "fields": {
+    "title": "Maushold EX #155",
+    "description": "The two little ones just appeared one day. The group might be a family of related Pokémon, but nobody knows for sure.",
+    "image": "files/images/maushold.png",
+    "category": "single_card",
+    "set_name": "Paradox Rift",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "uncommon",
+    "ability": "none",
+    "element": "colorless",
+    "base_price": "0.99",
+    "stock_quantity": 41,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 15,
+  "fields": {
+    "title": "Cofagrigus ex #244",
+    "description": "This Pokémon has a body of sparkling gold. People say it no longer remembers that it was once human.",
+    "image": "files/images/cofagrigus.png",
+    "category": "single_card",
+    "set_name": "Paradox Rift",
+    "type": "pokemon",
+    "condition": "near_mint",
+    "rarity": "rare",
+    "ability": "none",
+    "element": "psychic",
+    "base_price": "1.62",
+    "stock_quantity": 23,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 16,
+  "fields": {
+    "title": "Swanna #140",
+    "description": "Centered around its leader, the flock dances in perfect sync to strengthen its unity.",
+    "image": "files/images/swanna_qwuY2hv.png",
+    "category": "single_card",
+    "set_name": "Twilight Masquerade",
+    "type": "pokemon",
+    "condition": "used",
+    "rarity": "common",
+    "ability": "none",
+    "element": "colorless",
+    "base_price": "0.01",
+    "stock_quantity": 0,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 17,
+  "fields": {
+    "title": "Legacy Energy #167",
+    "description": "Energy card",
+    "image": "files/images/legacy_energy_4AB8edn.png",
+    "category": "single_card",
+    "set_name": "Twilight Masquerade",
+    "type": "energy",
+    "condition": "mint",
+    "rarity": "common",
+    "ability": "none",
+    "element": "none",
+    "base_price": "18.37",
+    "stock_quantity": 27,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 18,
+  "fields": {
+    "title": "Perrin",
+    "description": "Perrin",
+    "image": "files/images/perrin_HzHTbwm.png",
+    "category": "single_card",
+    "set_name": "Twilight Masquerade",
+    "type": "trainer",
+    "condition": "mint",
+    "rarity": "rare",
+    "ability": "none",
+    "element": "colorless",
+    "base_price": "169.76",
+    "stock_quantity": 2,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 19,
+  "fields": {
+    "title": "Hawlucha",
+    "description": "With its wings, it controls its position in the air. It likes to attack from above, a maneuver that is difficult to defend against.",
+    "image": "files/images/hawlucha_qejzgUE.png",
+    "category": "single_card",
+    "set_name": "Twilight Masquerade",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "common",
+    "ability": "none",
+    "element": "fighting",
+    "base_price": "0.24",
+    "stock_quantity": 21,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 20,
+  "fields": {
+    "title": "N's Reshiram #167",
+    "description": "This legendary Pokémon can scorch the world with fire. It helps those who want to build a world of truth.",
+    "image": "files/images/reshiram_VU7r18z.png",
+    "category": "single_card",
+    "set_name": "Journey Together",
+    "type": "pokemon",
+    "condition": "near_mint",
+    "rarity": "rare",
+    "ability": "none",
+    "element": "dragon",
+    "base_price": "24.98",
+    "stock_quantity": 6,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 21,
+  "fields": {
+    "title": "Lillie's Ribombee",
+    "description": "Ribombee can sense when people or Pokémon are feeling down, and it will cheer them up with handmade pollen puffs.",
+    "image": "files/images/ribombee_vg6VivZ.png",
+    "category": "single_card",
+    "set_name": "Journey Together",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "uncommon",
+    "ability": "none",
+    "element": "psychic",
+    "base_price": "5.02",
+    "stock_quantity": 16,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 22,
+  "fields": {
+    "title": "Journey Together Booster pack",
+    "description": "Booster pack",
+    "image": "files/images/jt_booster_pack_p69fM2Y.jpg",
+    "category": "booster_pack",
+    "set_name": "Journey Together",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "rare",
+    "ability": "none",
+    "element": "none",
+    "base_price": "9.95",
+    "stock_quantity": 44,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 23,
+  "fields": {
+    "title": "Twilight Masquerade Booster Pack",
+    "description": "Booster pack",
+    "image": "files/images/tm_booster_pack_UdrBfM6.webp",
+    "category": "booster_pack",
+    "set_name": "Twilight Masquerade",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "common",
+    "ability": "none",
+    "element": "none",
+    "base_price": "14.97",
+    "stock_quantity": 46,
+    "listing_status": "active"
+  }
+},
+{
+  "model": "shop.listing",
+  "pk": 24,
+  "fields": {
+    "title": "Journey Together Booster Box",
+    "description": "Booster box",
+    "image": "files/images/jt_boosterbox_tofFnXE.webp",
+    "category": "booster_box",
+    "set_name": "Journey Together",
+    "type": "pokemon",
+    "condition": "mint",
+    "rarity": "uncommon",
+    "ability": "none",
+    "element": "none",
+    "base_price": "263.96",
+    "stock_quantity": 4,
+    "listing_status": "active"
+  }
+}
+]
