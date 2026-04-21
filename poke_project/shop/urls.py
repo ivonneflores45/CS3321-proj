@@ -43,7 +43,7 @@ urlpatterns = [
 
     #cart actions
     path('cart/', views.cart, name='shop-cart'),
-    path('cart/add/', views.add_to_cart, name='cart-add'),
+    path('cart/add/<int:id>/', views.add_to_cart, name='cart-add'),
     path('cart/remove/<int:id>/', views.remove_from_cart, name='cart-remove'),
     path('cart/update/<int:id>/', views.update_cart_quantity, name='cart-update'),
 

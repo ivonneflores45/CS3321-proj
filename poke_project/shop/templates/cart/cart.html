@@ -1,18 +1,144 @@
 <!DOCTYPE html>
 {% load tailwind_cli %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Django App</title>
+    <title>PokeBid: Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Passion+One:wght@400;700;900&family=Slackey&display=swap" rel="stylesheet">
     {% tailwind_css %}
 </head>
-<body class="bg-blue-300">
-    <div class="container mx-auto px-4 bg-blue-300">
+<body class="m-0 p-0 font-[PT_Sans]">
+
+    <!--navbar (matches catalog)-->
+    <div class="fixed top-0 left-0 w-full h-24 bg-black flex justify-between items-center px-4 z-[999] font-[Lexend] text-2xl">
+        <!-- logo -->
+        <a href="{% url 'shop-home' %}">
+            <div class="flex cursor-pointer items-center gap-2">
+                <img src="{% static 'homepage/PokeBid.png' %}" class="h-20"/>
+                <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
+            </div>
+        </a>
+
+        <!-- nav links-->
+         <ul class="flex justify-center items-center gap-8 list-none text-white">
+            <li>
+                <a class=""transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                    href="{% url 'shop-catalog'%}">
+                    Shop
+                </a>
+            </li>
+            <li>
+                <a class="text-orange-300 cursor-pointer"
+                    href="{% url 'shop-cart' %}">
+                    Cart
+                </a> 
+            </li>
+            <li>
+                <a class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-2x1 cursor-pointer hover:bg-[#fd9b08]"
+                    href="{% url 'shop-login'}">
+                    Login/Register
+                </a>
+            </li>
+         </ul>
+    </div>
+
+    <!-- cart content-->
+     <div class="'mt-24 px-20 py-10">
+        <h1 class="font-[Lexend] text-3xl font-bold mb-8">Your Cart</h1>
+        {% if cart_items %}
+            <!--cart items list-->
+            <div class="flex flex-col gap-4">
+                {% for items in cart_items %}
+                <div class="flex flex-row items-center justify-between border-2 border-slate-200 rounded-xl p-6">
+                    <!--item image + details-->
+                    <div class="flex flex-row items-center gap-6">
+                        {% if item.listing.image %}
+                            <img src="{{ item.listnig.image.url }}" class="w-24 h-auto object-contain"/>
+                        {% else %}
+                            <img src="{% static 'cards/snivy.png'}" class="w-24 h-auto object-contain"/>
+                        {% endif %}
+
+                        <div class="flex flex-col gap-1">
+                            <h2 class="font-bold text-xl">{{ item.listing.title }}</h2>
+                            <span class="text-slate-500">{{ item.listing.set_name }}</span>
+                            <span>${{ item.listing.base_price }}</span>
+                        </div>
+                    </div>
+
+                    <!--quantity controls + remove-->
+                    <div class="flex flex-row items-center gap-8">
+
+                        <!--quantity up/down form-->
+                        <div class="flex flex-row items-center gap-2">
+                            <!--decrease-->
+                            <form method="POST" action="{% url 'cart-update' item.listing.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="{{ item.quantity|add:'-1'}}">
+                                <button type="submit"></button>▼</button>
+                            </form>
+
+                            <!--current quantity-->
+                            <span class="text-xl font-bold w-6 text-center">{{ item.quantity }}</span>
+
+                            <!--increase-->
+                            <form method="POST" action="{% url 'cart-update' item.listing.id %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="{{ item.quantity|add:'1' }}">
+                                <button type="submit">▲</button>
+                            </form>
+                        </div>
+
+                        <!--subtotal-->
+                        <span class="text-lg font-bold">${{ item.subtotal }}</span>
+
+                        <!--remove button (looks like a link for rn (hopefully lol))-->
+                         <form method="POST" action="{% url 'cart-remove' item.listing.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="text-slate-400 hover:text-red-500 underline text-sm cursor-pointer">
+                                Remove
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!--order summary-->
+            <div class="flex flex-col items-end mt-8 gap-4">
+                <div class="flex flex-row gap-4 text-xl font-bold">
+                    <span>Total:</span>
+                    <span>${{ total }}</span>
+                </div>
+                <a href="{% url 'shop-checkout' %}"
+                    class="bg-[#fdbd0c] text-white font-[Lexend] px-8 py-3 rounded-full text-xl hover:bg[#fd9b08]">
+                    Proceed to Checkout
+                </a>
+                <a href="{% url 'shop-catalog'}"
+                    class="text-slate-400 hover:text-black underline text-sm">
+                    Continue Shopping
+                </a>
+            </div>
+        {% else %}
+            <!--if cart is empty-->
+            <div class="flex flex-col items-center justify-center gap-4 mt-20">
+                <p class="text-2xl text-slate-400">Your cart is empty.</p>
+                <a href="{% url 'shop-catalog' %}"
+                    class="bg-[#fdbd0c] text-white font-[Lexend] px-8 py-3 rounded-full text-xl hover:bg-[#fd9b08]">
+                    Browse Listings
+                </a>
+            </div>
+        {% endif %}
+     </div>
+    <!-- <div class="container mx-auto px-4 bg-blue-300">
         {% block content %}
 
         {% endblock %}
         <h1 class="text-red-950">cart page!!</h1>
-    </div>
+    </div> -->
 </body>
 </html>
