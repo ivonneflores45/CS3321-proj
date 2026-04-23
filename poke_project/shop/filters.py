@@ -20,7 +20,7 @@ class ListingFilter(django_filters.FilterSet):
     #dropdown filters using listing model choice sets
     category = django_filters.ChoiceFilter(
         choices=[('', 'All Categories')] + list(Listing.CATEGORY_CHOICES),
-        widgets=forms.Select(attrs={
+        widget=forms.Select(attrs={
             'class':'tailwind class here'
         })
      
@@ -28,28 +28,28 @@ class ListingFilter(django_filters.FilterSet):
 
     condition = django_filters.ChoiceFilter(
         choices=[('', 'All Conditions')] + list(Listing.CONDITION_CHOICES),
-        widgets=forms.Select(attrs={
+        widget=forms.Select(attrs={
             'class':'tailwind class here'
         })
      
     )
     rarity = django_filters.ChoiceFilter(
         choices=[('', 'All Rarities')] + list(Listing.RARITY_CHOICES),
-        widgets=forms.Select(attrs={
+        widget=forms.Select(attrs={
             'class':'tailwind class here'
         })
      
     )
     element = django_filters.ChoiceFilter(
         choices=[('', 'All Elements')] + list(Listing.ELEMENT_CHOICES),
-        widgets=forms.Select(attrs={
+        widget=forms.Select(attrs={
             'class':'tailwind class here'
         })
      
     )
     type = django_filters.ChoiceFilter(
         choices=[('', 'All Types')] + list(Listing.TYPE_CHOICES),
-        widgets=forms.Select(attrs={
+        widget=forms.Select(attrs={
             'class':'tailwind class here'
         })
      
