@@ -117,7 +117,7 @@ def add_to_cart(request,id):
         cart[str_id] = 1
     
     request.session['cart'] = cart
-    return redirect ('cart/cart_add.html')
+    return redirect ('shop-cart')
 
 def remove_from_cart(request, id):
     cart = request.session.get('cart',{})
@@ -127,7 +127,7 @@ def remove_from_cart(request, id):
         del cart[str_id]
 
     request.session['cart'] = cart
-    return redirect ('cart/remove_from_cart.html')
+    return redirect ('shop-cart')
 
 def update_cart_quantity(request, id):
     cart = request.session.get('cart',{})
@@ -140,7 +140,7 @@ def update_cart_quantity(request, id):
         cart[str_id] = quantity
     
     request.session['cart'] = cart
-    return redirect ('cart/update_cart_quantity.html')
+    return redirect ('shop-cart')
 
 '''
 Orders Views
