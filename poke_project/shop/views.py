@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
+from django.contrib import messages
 
 
 from django.http import HttpResponse
@@ -111,10 +112,20 @@ def add_to_cart(request,id):
     cart = request.session.get('cart',{})
     str_id = str(id) #session key has to be converted to string
 
-    if str_id in cart:
-        cart[str_id] += 1
-    else:
-        cart[str_id] = 1
+    current_quantity = cart.get(str_id, 0)
+    requested_quantity = current_quantity + 1
+
+    #check against stock before adding
+    if requested_quantity > listing.stock_quantity:
+        # messages.error(request, f'Sorry, only {listing.stock_quantity} in stock.')
+        return redirect('shop-listing', id=id)
+    
+    cart[str_id] = requested_quantity
+
+    # if str_id in cart:
+    #     cart[str_id] += 1
+    # else:
+    #     cart[str_id] = 1
     
     request.session['cart'] = cart
     return redirect ('shop-cart')
@@ -130,12 +141,17 @@ def remove_from_cart(request, id):
     return redirect ('shop-cart')
 
 def update_cart_quantity(request, id):
+    listing = get_object_or_404(Listing, id=id)
     cart = request.session.get('cart',{})
     str_id = str(id) #session key has to be converted to string
     quantity = int(request.POST.get('quantity', 1))
 
     if quantity <= 0:
         del cart[str_id]
+    elif quantity > listing.stock_quantity:
+        #cap at stock quantity instead of allowing over drawing
+        cart[str_id] = listing.stock_quantity
+        # messages.error(request, f'Sorry, only {listing.stock_quantity} in stock.')
     else:
         cart[str_id] = quantity
     
