@@ -26,7 +26,7 @@
         <!-- nav links-->
          <ul class="flex justify-center items-center gap-8 list-none text-white">
             <li>
-                <a class=""transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                <a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
                     href="{% url 'shop-catalog'%}">
                     Shop
                 </a>
@@ -47,7 +47,7 @@
     </div>
 
     <!-- cart content-->
-     <div class="'mt-24 px-20 py-10">
+     <div class="mt-20 px-20 py-10">
         <h1 class="font-[Lexend] text-3xl font-bold mb-8">Your Cart</h1>
         {% if cart_items %}
             <!--cart items list-->
@@ -115,7 +115,7 @@
                     <span>${{ total }}</span>
                 </div>
                 <a href="{% url 'shop-checkout' %}"
-                    class="bg-[#fdbd0c] text-white font-[Lexend] px-8 py-3 rounded-full text-xl hover:bg-amber-500"">
+                    class="bg-[#fdbd0c] text-white font-[Lexend] px-8 py-3 rounded-full text-xl hover:bg-amber-500">
                     Proceed to Checkout
                 </a>
                 <a href="{% url 'shop-catalog' %}"

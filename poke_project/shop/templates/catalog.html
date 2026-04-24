@@ -143,9 +143,12 @@
                 <a href="{% url 'shop-listing' card.id%}">
                     <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
                         <div class="flex flex-row items-start gap-4">
-                            <img src="{{card.image.url}}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                        
+                            {% if card.image %}
+                                <img src="{{card.image.url}}"
+                                    class="w-42 h-auto object-contain shrink-0"/>
+                            {% else %}
+                                <img src="{% static 'cards/no_image.webp' %}"/>
+                            {% endif %}
                             <div class="flex flex-col ml-2 gap-2">
                                 <h1 class="font-[PT_Sans] font-bold text-2xl">
                                     {{card.title}}
