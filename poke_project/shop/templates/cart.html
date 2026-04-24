@@ -39,7 +39,7 @@
             </li>
             <li>
                 <a class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-2x1 cursor-pointer hover:bg-[#fd9b08]"
-                    href="{% url 'shop-login'}">
+                    href="{% url 'shop-login' %}">
                     Login/Register
                 </a>
             </li>
@@ -52,14 +52,14 @@
         {% if cart_items %}
             <!--cart items list-->
             <div class="flex flex-col gap-4">
-                {% for items in cart_items %}
+                {% for item in cart_items %}
                 <div class="flex flex-row items-center justify-between border-2 border-slate-200 rounded-xl p-6">
                     <!--item image + details-->
                     <div class="flex flex-row items-center gap-6">
                         {% if item.listing.image %}
-                            <img src="{{ item.listnig.image.url }}" class="w-24 h-auto object-contain"/>
+                            <img src="{{ item.listing.image.url }}" class="w-30 h-auto object-contain"/>
                         {% else %}
-                            <img src="{% static 'cards/snivy.png'}" class="w-24 h-auto object-contain"/>
+                            <img src="{% static 'cards/snivy.png'}" class="w-30 h-auto object-contain"/>
                         {% endif %}
 
                         <div class="flex flex-col gap-1">
@@ -70,25 +70,25 @@
                     </div>
 
                     <!--quantity controls + remove-->
-                    <div class="flex flex-row items-center gap-8">
+                    <div class="flex flex-row items-center gap-8 justify-center">
 
                         <!--quantity up/down form-->
                         <div class="flex flex-row items-center gap-2">
-                            <!--decrease-->
+                            <!--increase-->
                             <form method="POST" action="{% url 'cart-update' item.listing.id %}">
                                 {% csrf_token %}
-                                <input type="hidden" name="quantity" value="{{ item.quantity|add:'-1'}}">
-                                <button type="submit"></button>▼</button>
+                                <input type="hidden" name="quantity" value="{{ item.quantity|add:'1' }}">
+                                <button type="submit" class="text-3xl cursor-pointer text-slate-400">+</button>
                             </form>
 
                             <!--current quantity-->
                             <span class="text-xl font-bold w-6 text-center">{{ item.quantity }}</span>
 
-                            <!--increase-->
+                            <!--decrease-->
                             <form method="POST" action="{% url 'cart-update' item.listing.id %}">
                                 {% csrf_token %}
-                                <input type="hidden" name="quantity" value="{{ item.quantity|add:'1' }}">
-                                <button type="submit">▲</button>
+                                <input type="hidden" name="quantity" value="{{ item.quantity|add:'-1'}}">
+                                <button type="submit" class="text-3xl cursor-pointer text-slate-400">-</button>
                             </form>
                         </div>
 
@@ -98,8 +98,8 @@
                         <!--remove button (looks like a link for rn (hopefully lol))-->
                          <form method="POST" action="{% url 'cart-remove' item.listing.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="text-slate-400 hover:text-red-500 underline text-sm cursor-pointer">
-                                Remove
+                            <button type="submit" class="cursor-pointer">
+                                <svg class="fill-slate-400 w-6 h-6 hover:fill-red-500 transition" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M232.7 69.9L224 96L128 96C110.3 96 96 110.3 96 128C96 145.7 110.3 160 128 160L512 160C529.7 160 544 145.7 544 128C544 110.3 529.7 96 512 96L416 96L407.3 69.9C402.9 56.8 390.7 48 376.9 48L263.1 48C249.3 48 237.1 56.8 232.7 69.9zM512 208L128 208L149.1 531.1C150.7 556.4 171.7 576 197 576L443 576C468.3 576 489.3 556.4 490.9 531.1L512 208z"/></svg>
                             </button>
                         </form>
 
@@ -115,10 +115,10 @@
                     <span>${{ total }}</span>
                 </div>
                 <a href="{% url 'shop-checkout' %}"
-                    class="bg-[#fdbd0c] text-white font-[Lexend] px-8 py-3 rounded-full text-xl hover:bg[#fd9b08]">
+                    class="bg-[#fdbd0c] text-white font-[Lexend] px-8 py-3 rounded-full text-xl hover:bg-amber-500"">
                     Proceed to Checkout
                 </a>
-                <a href="{% url 'shop-catalog'}"
+                <a href="{% url 'shop-catalog' %}"
                     class="text-slate-400 hover:text-black underline text-sm">
                     Continue Shopping
                 </a>

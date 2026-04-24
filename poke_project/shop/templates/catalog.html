@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load tailwind_cli %}
 {% load static %}
+{% load widget_tweaks %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,58 +23,119 @@
     -->
 
     <!--nav bar-->
-    <div class="fixed top-0 left-0 w-full h-24 bg-black flex justify-between items-center px-4 z-[999] font-[Lexend] text-2xl">
-        <!-- logo -->
-         <a href="{% url 'shop-home' %}">
-            <div class="flex cursor-pointer items-center gap-2">
-                <img src="{% static 'homepage/PokeBid.png'%}" class="h-20"/>
-                <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
-            </div>
-         </a>
-
-         <form method="get" class="flex-1 h-12 flex px-12 overflow-hidden rounded-lg">
+    <form method="get">
+        <div class="fixed top-0 left-0 w-full h-24 bg-black flex justify-between items-center px-4 z-[999] font-[Lexend] text-2xl">
+            <!-- logo -->
+             <a href="{% url 'shop-home' %}">
+                <div class="flex cursor-pointer items-center gap-2">
+                    <img src="{% static 'homepage/PokeBid.png'%}" class="h-20"/>
+                    <span class="text-[#fdbd0c] font-[Slackey] text-3xl">PokeBid</span>
+                </div>
+             </a>
 
             <!-- searchbar -->
-            <div class="w-4/6 h-full flex items-center outline-none text-md bg-white">
-                {{filter.form.title}}
+             <div class="flex-1 h-full flex px-12 overflow-hidden items-center justify-center rounded-lg">
+                <div class="w-140 flex items-center h-12 mr-2">
+                    {% render_field filter.form.title class="bg-white outline-none w-full h-full pl-3 text-md rounded-3xl" placeholder="Search" %}
+                </div>
+                <button type="submit" class="w-40 h-12 bg-[#fdbd0c] flex justify-center items-center text-white rounded-full px-6 py-2 text-md cursor-pointer hover:bg-[#fd9b08]">
+                    Search
+                </button>
+             </div>
+
+
+
+
+
+            <!-- top-right hand side links -->
+            <ul class="flex justify-center items-center gap-8 list-none text-white">
+                <li><a class="text-orange-300 cursor-pointer"
+                    href="{% url 'shop-catalog' %}">
+                    Shop
+                    </a>
+                </li>
+                <li>
+                    <a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                        href="{% url 'shop-cart' %}">
+                        Cart
+                    </a>
+                </li>
+                <li>
+                    <a class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-[#fd9b08]"
+                        href="{% url 'shop-login' %}">
+                        Login/Register
+                    </a>
+                </li>
+            </ul>
+
+            <!-- filtersort container -->
+            <div class="fixed top-24 left-0 flex z-[99] bg-amber-100 w-full h-18 border-b-2 border-slate-300">
+                <div class="flex w-full divide-x divide-slate-300">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
+                            Sort by
+                        </span>
+                        {% render_field filter.form.sort class="text-md bg-white border-2 border-slate-300" %}
+                    </div>
+
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
+                            Minimum price
+                        </span>
+                        {% render_field filter.form.min_price class="w-35 text-md outline-none border-2 border-slate-300 bg-white placeholder-slate-300" placeholder="$0.00" %}
+                    </div>
+
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
+                            Maximum price
+                        </span>
+                        {% render_field filter.form.max_price class="text-md w-35 outline-none border-2 border-slate-300 bg-white placeholder-slate-300" placeholder="$1000.00" %}
+                    </div>
+
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
+                            Category
+                        </span>
+                        {% render_field filter.form.category class="text-md bg-white border-2 border-slate-300" %}
+                    </div>
+
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
+                            Condition
+                        </span>
+                        {% render_field filter.form.condition class="text-md bg-white border-2 border-slate-300" %}
+                    </div>
+
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
+                            Rarity
+                        </span>
+                        {% render_field filter.form.rarity class="text-md bg-white border-2 border-slate-300" %}
+                    </div>
+
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
+                            Element
+                        </span>
+                        {% render_field filter.form.element class="text-md bg-white border-2 border-slate-300" %}
+                    </div>
+
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
+                            Type
+                        </span>
+                        {% render_field filter.form.type class="text-md bg-white border-2 border-slate-300" %}
+                    </div>
+
+                </div>
+                
             </div>
+        </div>
 
-            <!-- sort -->
-            <div class="w-1/6 h-full text-sm flex justify-center items-center bg-white border-l-2 border-slate-400">
-                {{filter.form.sort}}
-            </div>
-
-            <!-- filter -->
-            <div class="w-1/6 h-full text-sm flex justify-center items-center bg-white border-l-2 border-slate-400">
-                {{filter.form.category}}
-            </div>
-
-        </form>
-
-        <!-- top-right hand side links -->
-        <ul class="flex justify-center items-center gap-8 list-none text-white">
-            <li><a class="text-orange-300 cursor-pointer"
-                href="{% url 'shop-catalog' %}">
-                Shop
-                </a>
-            </li>
-            <li>
-                <a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
-                    href="{% url 'shop-cart' %}">
-                    Cart
-                </a>
-            </li>
-            <li>
-                <a class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-[#fd9b08]"
-                    href="{% url 'shop-login' %}">
-                    Login/Register
-                </a>
-            </li>
-        </ul>
-    </div>
+    </form>
 
         <!-- CARDS & LISTINGS CONTAINER -->
-        <div class="size-auto absolute flex top-35 left-25 right-25">
+        <div class="size-auto absolute flex top-45 left-25 right-25 pb-10">
             <!-- GRID CONTAINER -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
                 <!-- ACTUAL LISTINGS SQUARES -->
@@ -94,6 +156,16 @@
                                 <span class="font-[PT_Sans] text-lg">
                                     ${{card.base_price}}
                                 </span>
+                                <!-- condition label -->
+                                {% if card.condition == 'mint' %}
+                                    <span class="flex w-30 justify-center py-2 opacity-50 rounded-full w-8 px-4 py-2 rounded-full bg-lime-200">Mint</span>
+                                {% elif card.condition == 'near_mint' %}
+                                    <span class="flex w-30 justify-center py-2 opacity-50 rounded-full px-4 py-2 rounded-full bg-yellow-200">Near mint</span>
+                                {% elif card.condition == 'used' %}
+                                    <span class="flex w-30 justify-center py-2 opacity-50 rounded-full bg-orange-200">Used</span>
+                                {% elif card.condition == 'damaged' %}
+                                    <span class="flex w-30 justify-center py-2 opacity-50 rounded-full px-4 py-2 rounded-full bg-red-200">Damaged</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

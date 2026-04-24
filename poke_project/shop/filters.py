@@ -20,38 +20,26 @@ class ListingFilter(django_filters.FilterSet):
     #dropdown filters using listing model choice sets
     category = django_filters.ChoiceFilter(
         choices=[('', 'All Categories')] + list(Listing.CATEGORY_CHOICES),
-        widget=forms.Select(attrs={
-            'class':'tailwind class here'
-        })
-     
+\
     )
 
     condition = django_filters.ChoiceFilter(
         choices=[('', 'All Conditions')] + list(Listing.CONDITION_CHOICES),
-        widget=forms.Select(attrs={
-            'class':'tailwind class here'
-        })
+
      
     )
     rarity = django_filters.ChoiceFilter(
         choices=[('', 'All Rarities')] + list(Listing.RARITY_CHOICES),
-        widget=forms.Select(attrs={
-            'class':'tailwind class here'
-        })
+
      
     )
     element = django_filters.ChoiceFilter(
         choices=[('', 'All Elements')] + list(Listing.ELEMENT_CHOICES),
-        widget=forms.Select(attrs={
-            'class':'tailwind class here'
-        })
-     
+
     )
-    type = django_filters.ChoiceFilter(
+    types = django_filters.ChoiceFilter(
         choices=[('', 'All Types')] + list(Listing.TYPE_CHOICES),
-        widget=forms.Select(attrs={
-            'class':'tailwind class here'
-        })
+
      
     )
     #set name search
@@ -72,10 +60,7 @@ class ListingFilter(django_filters.FilterSet):
             ('base_price', 'Price: Low to High'),
             ('-base_price', 'Price: High to Low'),
             ('title', 'Name: A to Z'),
-        ],
-        widget=forms.Select(attrs={
-            'class':'tailwind class here'
-        })
+        ]
     )
 
     class Meta: 

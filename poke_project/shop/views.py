@@ -101,7 +101,7 @@ def cart(request):
             'subtotal':subtotal,
         })
 
-    return render(request, 'cart/cart.html', {
+    return render(request, 'cart.html', {
         'cart_items':cart_items,
         'total':total,
     })

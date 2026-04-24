@@ -6,6 +6,8 @@ Django==6.0.3
 django-filter==25.2
 django-tailwind-cli==4.5.1
 django-typer==3.7.1
+django-widget-tweaks==1.5.1
+git-filter-repo==2.47.0
 markdown-it-py==4.0.0
 mdurl==0.1.2
 pillow==12.2.0

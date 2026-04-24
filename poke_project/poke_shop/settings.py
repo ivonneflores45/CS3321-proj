@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'shop',
     'django_tailwind_cli',
     'django_filters',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
