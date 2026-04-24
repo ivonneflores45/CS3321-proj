@@ -373,6 +373,9 @@
     width: auto;
     height: auto;
   }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
   .h-12 {
     height: calc(var(--spacing) * 12);
   }
@@ -708,6 +711,9 @@
   .bg-repeat-x {
     background-repeat: repeat-x;
   }
+  .fill-slate-400 {
+    fill: var(--color-slate-400);
+  }
   .object-contain {
     object-fit: contain;
   }
@@ -964,6 +970,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-white);
+      }
+    }
+  }
+  .hover\:fill-red-500 {
+    &:hover {
+      @media (hover: hover) {
+        fill: var(--color-red-500);
       }
     }
   }

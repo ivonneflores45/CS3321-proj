@@ -109,22 +109,33 @@
 
                 </div>
 
+                <!-- add to cart & quantity -->
                 <div class="lg:w-1/3 flex justify-start">
-                    <div class="border-2 border-slate-300 rounded-lg w-80 p-6 h-fit items-center justify-center flex flex-col gap-4 ">
-                        <span class="font-bold text-3xl">
-                           ${{listing.base_price}}
-                        </span>
-                        <div class="flex items-center gap-3">
-                            <button class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 text-xl cursor-pointer hover:bg-[#fd9b08]">
-                               Add to cart
-                            </button>
-                            <input type="number"
-                               min="1"
-                               max="{{listing.stock_quantity}}"
-                               value="1"
-                               class="w-20 border border-slate-300 rounded-lg px-3 py-2">
+
+                    <form method="POST" action="{% url 'cart-add' listing.id %}">
+                        {% csrf_token %}
+                        <div class="border-2 border-slate-300 rounded-lg w-80 p-6 h-fit items-center justify-center flex flex-col gap-4 ">
+                            <span class="font-bold text-3xl">
+                               ${{listing.base_price}}
+                            </span>
+                            <div class="flex items-center gap-3">
+
+                                <input type="number"
+                                    name="quantity"
+                                   min="1"
+                                   max="{{listing.stock_quantity}}"
+                                   value="1"
+                                   class="w-20 border border-slate-300 rounded-lg px-3 py-2">
+
+                                <button type="submit" 
+                                    class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 text-xl cursor-pointer hover:bg-[#fd9b08]">
+                                   Add to cart
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
+
                 </div>
 
                 
