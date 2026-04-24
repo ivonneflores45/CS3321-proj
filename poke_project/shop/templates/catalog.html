@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load tailwind_cli %}
 {% load static %}
+{% load widget_tweaks %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -34,10 +35,10 @@
 
             <!-- searchbar -->
              <div class="flex-1 h-full flex px-12 overflow-hidden items-center justify-center rounded-lg">
-                <div class="w-4/5 flex items-center h-16 text-md bg-white">
-                    {{filter.form.title}}
+                <div class="w-140 flex items-center h-12 mr-2">
+                    {% render_field filter.form.title class="bg-white outline-none w-full h-full pl-3 text-md rounded-3xl" placeholder="Search" %}
                 </div>
-                <button type="submit" class="w-1/5 bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-sm cursor-pointer hover:bg-[#fd9b08]">
+                <button type="submit" class="w-40 h-12 bg-[#fdbd0c] flex justify-center items-center text-white rounded-full px-6 py-2 text-md cursor-pointer hover:bg-[#fd9b08]">
                     Search
                 </button>
              </div>
@@ -68,62 +69,62 @@
             </ul>
 
             <!-- filtersort container -->
-            <div class="fixed top-24 left-0  flex z-[99] bg-white w-full h-18 border-b-2 border-slate-300">
-                <div class="flex gap-4">
-                    <div class="flex flex-col border-r-2">
-                        <span class="text-sm">
+            <div class="fixed top-24 left-0 flex z-[99] bg-amber-100 w-full h-18 border-b-2 border-slate-300">
+                <div class="flex w-full divide-x divide-slate-300">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
                             Sort by
                         </span>
-                        {{filter.form.sort}}
+                        {% render_field filter.form.sort class="text-md bg-white border-2 border-slate-300" %}
                     </div>
 
-                    <div class="h-full flex flex-col border-r-2">
-                        <span class="text-sm">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
                             Minimum price
                         </span>
-                        {{filter.form.min_price}}
+                        {% render_field filter.form.min_price class="w-35 text-md outline-none border-2 border-slate-300 bg-white placeholder-slate-300" placeholder="$0.00" %}
                     </div>
 
-                    <div class="flex flex-col border-r-2">
-                        <span class="text-sm">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
                             Maximum price
                         </span>
-                        {{filter.form.max_price}}
+                        {% render_field filter.form.max_price class="text-md w-35 outline-none border-2 border-slate-300 bg-white placeholder-slate-300" placeholder="$1000.00" %}
                     </div>
 
-                    <div class="flex flex-col">
-                        <span class="text-sm">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
                             Category
                         </span>
-                        {{filter.form.category}}
+                        {% render_field filter.form.category class="text-md bg-white border-2 border-slate-300" %}
                     </div>
 
-                    <div class="flex flex-col">
-                        <span class="text-sm">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
                             Condition
-                        </span class="text-sm">
-                        {{filter.form.condition}}
+                        </span>
+                        {% render_field filter.form.condition class="text-md bg-white border-2 border-slate-300" %}
                     </div>
 
-                    <div class="flex flex-col">
-                        <span class="text-sm">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
                             Rarity
                         </span>
-                        {{filter.form.rarity}}
+                        {% render_field filter.form.rarity class="text-md bg-white border-2 border-slate-300" %}
                     </div>
 
-                    <div class="flex flex-col">
-                        <span class="text-sm">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
                             Element
                         </span>
-                        {{filter.form.element}}
+                        {% render_field filter.form.element class="text-md bg-white border-2 border-slate-300" %}
                     </div>
 
-                    <div class="flex flex-col">
-                        <span class="text-sm">
+                    <div class="flex-1 flex flex-col px-4">
+                        <span class="text-sm pb-2">
                             Type
                         </span>
-                        {{filter.form.type}}
+                        {% render_field filter.form.type class="text-md bg-white border-2 border-slate-300" %}
                     </div>
 
                 </div>
@@ -134,7 +135,7 @@
     </form>
 
         <!-- CARDS & LISTINGS CONTAINER -->
-        <div class="size-auto absolute flex top-50 left-25 right-25">
+        <div class="size-auto absolute flex top-45 left-25 right-25 pb-10">
             <!-- GRID CONTAINER -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 w-full">
                 <!-- ACTUAL LISTINGS SQUARES -->
@@ -155,6 +156,16 @@
                                 <span class="font-[PT_Sans] text-lg">
                                     ${{card.base_price}}
                                 </span>
+                                <!-- condition label -->
+                                {% if card.condition == 'mint' %}
+                                    <span class="flex w-30 justify-center py-2 opacity-50 rounded-full w-8 px-4 py-2 rounded-full bg-lime-200">Mint</span>
+                                {% elif card.condition == 'near_mint' %}
+                                    <span class="flex w-30 justify-center py-2 opacity-50 rounded-full px-4 py-2 rounded-full bg-yellow-200">Near mint</span>
+                                {% elif card.condition == 'used' %}
+                                    <span class="flex w-30 justify-center py-2 opacity-50 rounded-full bg-orange-200">Used</span>
+                                {% elif card.condition == 'damaged' %}
+                                    <span class="flex w-30 justify-center py-2 opacity-50 rounded-full px-4 py-2 rounded-full bg-red-200">Damaged</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
