@@ -1,18 +1,55 @@
 <!DOCTYPE html>
 {% load tailwind_cli %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Django App</title>
+    <title>Order Confirmation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Passion+One:wght@400;700;900&family=Slackey&display=swap" rel="stylesheet">
     {% tailwind_css %}
 </head>
-<body class="bg-blue-300">
-    <div class="container mx-auto px-4 bg-blue-300">
-        {% block content %}
+<body class="p-0 m-0">
+    <!-- nav bar -->
+    <div class="fixed top-0 left-0 w-full h-24 bg-black flex justify-between items-center px-4 z-[999] font-[Lexend] text-2xl">
+        <!-- logo -->
+        <div class="flex cursor-pointer items-center gap-2">
+            <img src="{% static 'homepage/PokeBid.png'%}" class="h-20"/>
+            <span class="text-amber-400 font-[Slackey] text-3xl">PokeBid</span>
+        </div>
 
-        {% endblock %}
-        <h1 class="text-red-950">order confirmation page!!</h1>
+        <!-- top-right hand side links -->
+        <ul class="flex items-center gap-8 list-none text-white">
+            <li><a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                href="{% url 'shop-catalog' %}">
+                Shop
+                </a>
+            </li>
+            <li>
+                <a class="transition-colors duration-300 hover:text-orange-300 cursor-pointer"
+                    href="{% url 'shop-cart' %}">
+                    Cart
+                </a>
+            </li>
+            <li>
+                <a class="bg-amber-400 flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-amber-500"
+                    href="{% url 'shop-login' %}">
+                    Login/Register
+                </a>
+            </li>
+        </ul>
     </div>
+<div class="mt-40 font-[Lexend] w-full flex flex-col gap-12 justify-center items-center" >
+    <span class="font-bold text-4xl">
+        Order #{{order.id}} confirmed!
+    </span>
+    <span class="text-2xl">
+        Thank you for your purchase!
+    </span>
+    
+</div>
+        
 </body>
 </html>

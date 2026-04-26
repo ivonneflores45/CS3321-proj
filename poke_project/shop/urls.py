@@ -53,7 +53,7 @@ urlpatterns = [
     path('orders/<int:id>/cancel/', views.cancel_order, name='shop-order-cancel'),
 
     #checkout
-    path('checkout/', views.checkout, name='shop-checkout'),
+    path('checkout/checkout/', views.checkout, name='shop-checkout'),
     path('orders/<int:id>/confirmation/', views.order_confirmation, name='shop-order-confirmation'),
 
     #admin dashboard
