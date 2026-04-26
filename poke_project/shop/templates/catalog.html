@@ -60,12 +60,34 @@
                         Cart
                     </a>
                 </li>
-                <li>
-                    <a class="bg-[#fdbd0c] flex text-white rounded-full px-6 py-2 mr-4 text-2xl cursor-pointer hover:bg-[#fd9b08]"
-                        href="{% url 'shop-login' %}">
-                        Login/Register
+            <!-- CHECKS IF USER IS AUTHENTICATED, IF AUTH = "USERNAME" IF NOT, "REGISTER/LOGIN" -->
+            {% if user.is_authenticated %}
+            <li class="relative">
+                <!-- username button -->
+                <button onclick="toggleDropdown()" 
+                    class="bg-amber-400 rounded-full px-6 py-2 text-white hover:bg-amber-500">
+                    {{ user.username }}
+                </button>
+            
+                <!-- dropdown -->
+                <div id="userDropdown" 
+                     class="hidden absolute right-0 mt-2 w-40 bg-white text-black">
+
+                    <a href="{% url 'shop-logout' %}" 
+                       class="block px-4 py-2 hover:bg-gray-100 hover:bg-slate-200">
+                        Logout
                     </a>
-                </li>
+                </div>
+            </li>
+            {% else %}
+            <li>
+                <a class="bg-amber-400 flex text-white rounded-full px-6 py-2 mr-4 text-2xl hover:bg-amber-500"
+                   href="{% url 'shop-login' %}">
+                    Login/Register
+                </a>
+            </li>
+            {% endif %}
+            
             </ul>
 
             <!-- filtersort container -->
@@ -196,5 +218,11 @@
         {% block content %}
 
         {% endblock %}
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById("userDropdown");
+            dropdown.classList.toggle("hidden");
+        }
+    </script>
 </body>
 </html>
