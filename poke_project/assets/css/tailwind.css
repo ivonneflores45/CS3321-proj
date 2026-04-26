@@ -31,6 +31,7 @@
     --color-slate-300: oklch(86.9% 0.022 252.894);
     --color-slate-400: oklch(70.4% 0.04 256.788);
     --color-slate-500: oklch(55.4% 0.046 257.417);
+    --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-800: oklch(27.8% 0.033 256.848);
     --color-zinc-400: oklch(70.5% 0.015 286.067);
@@ -235,6 +236,9 @@
   }
   .top-45 {
     top: calc(var(--spacing) * 45);
+  }
+  .right-0 {
+    right: calc(var(--spacing) * 0);
   }
   .right-18 {
     right: calc(var(--spacing) * 18);
@@ -902,6 +906,9 @@
   .text-amber-400 {
     color: var(--color-amber-400);
   }
+  .text-black {
+    color: var(--color-black);
+  }
   .text-orange-300 {
     color: var(--color-orange-300);
   }
@@ -936,6 +943,10 @@
   }
   .opacity-70 {
     opacity: 70%;
+  }
+  .shadow-lg {
+    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-md {
     --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
@@ -1029,6 +1040,20 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-amber-500);
+      }
+    }
+  }
+  .hover\:bg-gray-100 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-gray-100);
+      }
+    }
+  }
+  .hover\:bg-slate-200 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-slate-200);
       }
     }
   }
