@@ -23,7 +23,6 @@
     -->
 
     <!--nav bar-->
-    <form method="get">
         <div class="fixed top-0 left-0 w-full h-24 bg-black flex justify-between items-center px-4 z-[999] font-[Lexend] text-2xl">
             <!-- logo -->
              <a href="{% url 'shop-home' %}">
@@ -34,18 +33,14 @@
              </a>
 
             <!-- searchbar -->
-             <div class="flex-1 h-full flex px-12 overflow-hidden items-center justify-center rounded-lg">
+             <form method="get" class="flex-1 h-full flex px-12 overflow-hidden items-center justify-center rounded-lg">
                 <div class="w-140 flex items-center h-12 mr-2">
                     {% render_field filter.form.title class="bg-white outline-none w-full h-full pl-3 text-md rounded-3xl" placeholder="Search" %}
                 </div>
                 <button type="submit" class="w-40 h-12 bg-[#fdbd0c] flex justify-center items-center text-white rounded-full px-6 py-2 text-md cursor-pointer hover:bg-[#fd9b08]">
                     Search
                 </button>
-             </div>
-
-
-
-
+             </form>
 
             <!-- top-right hand side links -->
             <ul class="flex justify-center items-center gap-8 list-none text-white">
@@ -89,6 +84,7 @@
             {% endif %}
             
             </ul>
+        </div>
 
             <!-- filtersort container -->
             <div class="fixed top-24 left-0 flex z-[99] bg-amber-100 w-full h-18 border-b-2 border-slate-300">
@@ -166,18 +162,10 @@
                     <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
                         <div class="flex flex-row items-start gap-4">
                             {% if card.image %}
-<<<<<<< HEAD
-                            <img src="{{card.image.url}}"
-                                class="w-42 h-auto object-contain shrink-0"/>
-                            {% else %}
-                                <img src="{% static 'cards/zekrom.png' %}"
-                                   class="w-42 h-auto object-contain shrink-0">
-=======
                                 <img src="{{card.image.url}}"
                                     class="w-42 h-auto object-contain shrink-0"/>
                             {% else %}
                                 <img src="{% static 'cards/no_image.webp' %}"/>
->>>>>>> 40d3c547a5e4be8ae528a8a40c8701d8d3f4185a
                             {% endif %}
                             <div class="flex flex-col ml-2 gap-2">
                                 <h1 class="font-[PT_Sans] font-bold text-2xl">
