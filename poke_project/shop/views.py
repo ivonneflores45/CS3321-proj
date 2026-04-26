@@ -247,63 +247,71 @@ def checkout(request):
             'subtotal': subtotal,
         })
 
+    if request.method == 'GET':
+        return render(request, 'checkout/checkout.html',{
+            'cart_items': cart_items,
+            'total': total
+        })
+
+
     #mock transaction begins 
     if request.method == 'POST':
-        payment_method = request.POST.get('payment_method')
+        payment_method = request.POST.get('payment_method', 'debit')
 
-    #create the order
-    order = Order.objects.create(
-        customer=customer,
-        total_amount = total,
-        status='pending'
-    )
-
-    #create order items and decrement stock
-    for item in cart_items:
-        OrderItems.objects.create(
-            order=order,
-            listing=item['listing'],
-            quantity=item['quantity'],
-            unit_price=item['listing'].base_price
+        #create the order
+        order = Order.objects.create(
+            customer=customer,
+            total_amount = total,
+            status='pending'
         )
-        item['listing'].stock_quantity -= item['quantity']
-        if item['listing'].stock_quantity <= 0:
-            item['listing'].listing_status = 'sold'
-        item['listing'].save()
 
-    #mock payment
-    Payment.objects.create(
-        order=order,
-        amount=total,
-        payment_method=payment_method,
-        paymnet_status='completed',
-        transaction_id='MOCK-TRANSACTION'
-    )
+        #create order items and decrement stock
+        for item in cart_items:
+            OrderItems.objects.create(
+                order=order,
+                listing=item['listing'],
+                quantity=item['quantity'],
+                unit_price=item['listing'].base_price
+            )
+            item['listing'].stock_quantity -= item['quantity']
+            if item['listing'].stock_quantity <= 0:
+                item['listing'].listing_status = 'sold'
+            item['listing'].save()
 
-    #create shipping record
-    ShippingInfo.objects.create(
-        customer=customer,
-        order=order,
-        recipient_name=request.POST.get('recipient_name', ''),
-        address_line1=request.POST.get('address_line1',''),
-        address_line2=request.POST.get('address_line2',''),
-        city=request.POST.get('city', ''),
-        state=request.POST.get('state', ''),
-        zip_code=request.POST.get('zip_code', ''),
-        country = request.POSt.get('country', ''),
-        shipping_status='processing'
-    )
 
-    #update order status and clear cart
-    order.status = 'processing'
-    order.save()
-    request.session['cart']= {}
+        #mock payment
+        Payment.objects.create(
+            order=order,
+            amount=total,
+            payment_method=payment_method,
+            payment_status='completed',
+            transaction_id='MOCK-TRANSACTION'
+        )
 
-    return redirect('shop-order-confirmation', id=order.id)
+        #create shipping record
+        ShippingInfo.objects.create(
+            customer=customer,
+            order=order,
+            recipient_name=request.POST.get('recipient_name', ''),
+            address_line1=request.POST.get('address_line1',''),
+            address_line2=request.POST.get('address_line2',''),
+            city=request.POST.get('city', ''),
+            state=request.POST.get('state', ''),
+            zip_code=request.POST.get('zip_code', ''),
+            country = request.POST.get('country', ''),
+            shipping_status='processing'
+        )
+
+        #update order status and clear cart
+        order.status = 'processing'
+        order.save()
+        request.session['cart']= {}
+
+        return redirect('shop-order-confirmation', id=order.id)
 
 #order confirmation 
 @login_required(login_url='shop-login')
-def order_confirmation(request):
+def order_confirmation(request, id):
     order = get_object_or_404(Order, id=id, customer__user=request.user)
     return render(request, 'checkout/order_confirmation.html', {'order':order})
 

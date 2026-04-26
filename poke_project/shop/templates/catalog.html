@@ -144,11 +144,18 @@
                     <div class="flex flex-row border-2 border-slate-200 rounded-xl p-7 w-full transition ease duration-300 hover:border-slate-300 hover:shadow-xl">
                         <div class="flex flex-row items-start gap-4">
                             {% if card.image %}
+<<<<<<< HEAD
                             <img src="{{card.image.url}}"
                                 class="w-42 h-auto object-contain shrink-0"/>
                             {% else %}
                                 <img src="{% static 'cards/zekrom.png' %}"
                                    class="w-42 h-auto object-contain shrink-0">
+=======
+                                <img src="{{card.image.url}}"
+                                    class="w-42 h-auto object-contain shrink-0"/>
+                            {% else %}
+                                <img src="{% static 'cards/no_image.webp' %}"/>
+>>>>>>> 40d3c547a5e4be8ae528a8a40c8701d8d3f4185a
                             {% endif %}
                             <div class="flex flex-col ml-2 gap-2">
                                 <h1 class="font-[PT_Sans] font-bold text-2xl">

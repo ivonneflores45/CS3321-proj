@@ -151,7 +151,7 @@ class ShippingInfo(models.Model):
     address_line2 = models.CharField(max_length=200, blank=True)
     city =  models.CharField(max_length=100)
     state =  models.CharField(max_length=100)
-    zipcode =  models.CharField(max_length=10)
+    zip_code =  models.CharField(max_length=10)
     country = models.CharField(max_length=200)
     tracking_number = models.CharField(max_length=200, blank=True)
     shipping_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='processing')
@@ -160,7 +160,7 @@ class ShippingInfo(models.Model):
        parts = [self.address_line1]
        if self.address_line2:
            parts.append(self.address_line2)
-       parts.append(f"{self.city}, {self.state}, {self.zipcode}, {self.country}")
+       parts.append(f"{self.city}, {self.state}, {self.zip_code}, {self.country}")
        return ', '.join(parts)
     
     def __str__(self):
