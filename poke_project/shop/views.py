@@ -53,7 +53,7 @@ def login_view(request):
 #logout page
 def logout_view(request):
     logout(request) #clear session automatically
-    return redirect ('auth/logout.html')
+    return redirect ('shop-home')
 
 
 '''
