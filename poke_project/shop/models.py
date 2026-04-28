@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+'''
+Models
+Author(s): Maryam Khan
+Date created: 4/2/2026
+'''
+
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 

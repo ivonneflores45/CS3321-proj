@@ -220,7 +220,7 @@ def cancel_order(request):
 
 '''
 Checkout Views
-Author(s): Jasmine Zamarron
+Author(s): Jasmine Zamarron & Jonathon Cervantez
 Date created: 4/19/2026
 '''
 ## checkout page
