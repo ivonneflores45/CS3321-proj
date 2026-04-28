@@ -1,10 +1,10 @@
 # CS3321-project
-Django project for a pokemon card online shop
+Django project for a pokemon card online shop.
 
 # framework + languages
-frontend: html, css, js
-bacend: python
-web framework: django
+- DJango framework for Python Web projects
+- HTML/Tailwind CSS For frontend
+- SQLite for our database
 
 # contributers
 - Ivonne Flores
